@@ -34,7 +34,7 @@ struct CardView:View{
       case .circle:
         Circle()
       case .diamond:
-        Capsule()
+        Diamond()
       }
     }
   }
