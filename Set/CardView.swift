@@ -11,14 +11,20 @@ struct CardView:View{
   let card:ShapeSetGame.Card
   
   var body: some View{
+    let cardStyle = card.cardStyle
     ZStack{
+      let shapeCount = cardStyle.contentNumber.rawValue
       RoundedRectangle(cornerRadius: 20).strokeBorder()
-      createCardContent().padding()
+      VStack{
+        ForEach(0..<shapeCount,id:\.self){ index in
+        createCardContent()
+        }
+      }.padding()
     }
   }
   
   private func createCardContent()-> some View{
-    VStack{
+    ZStack{
       let content = card.cardStyle.cardContent
       switch content {
       case .rectange:
