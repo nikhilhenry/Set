@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var viewModel:ShapeSetGame
+  @ObservedObject var game:ShapeSetGame
   
   var body: some View {
     VStack{
       Text("Memorize!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
-          ForEach(viewModel.cards){ card in
+          ForEach(game.cards){ card in
             CardView(card: card)
               .aspectRatio(2/3, contentMode: .fit)
           }
@@ -57,7 +57,7 @@ struct CardView:View{
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     let game = ShapeSetGame()
-    ContentView(viewModel:game)
+    ContentView(game:game)
   }
 }
 
