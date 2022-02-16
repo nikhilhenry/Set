@@ -18,7 +18,7 @@ struct ShapeSetGameCardStyle{
   enum cardColors:CaseIterable{
     case green
     case blue
-    case red
+    case purple
   }
   
   enum cardContents:CaseIterable{
@@ -45,8 +45,8 @@ struct ShapeSetGameCardStyle{
         return Color.green
       case .blue:
         return Color.blue
-      case .red:
-        return Color.red
+      case .purple:
+        return Color.purple
       }
     }
   }
