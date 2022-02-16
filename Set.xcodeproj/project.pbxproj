@@ -14,6 +14,7 @@
 		9F7B9D2A27BCB5EF00FE32E3 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */; };
 		9F7B9D2C27BCBC0100FE32E3 /* ShapeSetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */; };
 		9F7B9D2E27BCCEE800FE32E3 /* ShapeSetCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */; };
+		9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetGame.swift; sourceTree = "<group>"; };
 		9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetCardStyle.swift; sourceTree = "<group>"; };
+		9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		9F7B9D1A27BCB59900FE32E3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
+				9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */,
 				9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */,
 				9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */,
 				9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */,
@@ -150,6 +153,7 @@
 				9F7B9D1E27BCB59900FE32E3 /* ContentView.swift in Sources */,
 				9F7B9D2A27BCB5EF00FE32E3 /* SetGame.swift in Sources */,
 				9F7B9D1C27BCB59900FE32E3 /* SetApp.swift in Sources */,
+				9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */,
 				9F7B9D2E27BCCEE800FE32E3 /* ShapeSetCardStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

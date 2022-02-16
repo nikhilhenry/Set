@@ -15,41 +15,14 @@ struct ContentView: View {
       Text("Memorize!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
-          ForEach(game.cards){ card in
+          ForEach(game.cards[0..<8]){ card in
             CardView(card: card)
               .aspectRatio(2/3, contentMode: .fit)
           }
         }
       }
       .padding(.horizontal)
-      .foregroundColor(.red)
     }
-  }
-}
-
-struct ThemeView: View{
-  var themeIcon: String
-  var themeTitle: String
-  var themeAction: () -> Void
-  var body: some View{
-    Button(action:{
-      themeAction()
-    },label:{
-      VStack{
-        Image(systemName: themeIcon).font(.largeTitle)
-        Text(themeTitle)
-          .font(.caption)
-      }
-      .foregroundColor(.blue)
-    })
-  }
-}
-
-
-struct CardView:View{
-  let card:ShapeSetGame.Card
-  var body: some View{
-    Text("card")
   }
 }
 

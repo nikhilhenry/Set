@@ -18,7 +18,7 @@ class ShapeSetGame:ObservableObject{
   @Published private var model = SetGame<CardStlyes>(createUniqueCardStyles: cardStyles.generateUniqueCardStlyes)
   
   var cards: [Card]{
-    return model.cards
+    return model.cards.shuffled()
   }
   
   
