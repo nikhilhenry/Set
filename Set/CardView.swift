@@ -29,9 +29,9 @@ struct CardView:View{
     ZStack{
       let content = card.cardStyle.cardContent
       switch content {
-      case .rectange:
+      case .squiggle:
         Rectangle()
-      case .circle:
+      case .oval:
         Circle()
       case .diamond:
         Diamond()

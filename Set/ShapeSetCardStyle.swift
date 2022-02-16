@@ -22,8 +22,8 @@ struct ShapeSetGameCardStyle{
   }
   
   enum cardContents:CaseIterable{
-    case rectange
-    case circle
+    case squiggle
+    case oval
     case diamond
   }
   
