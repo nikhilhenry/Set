@@ -28,14 +28,38 @@ struct CardView:View{
   private func createCardContent()-> some View{
     ZStack{
       let content = card.cardStyle.cardContent
+      let shading = card.cardStyle.cardShading
       switch content {
       case .squiggle:
-        Rectangle()
+        switch shading{
+        case .open:
+          Rectangle().stroke()
+        case .striped:
+          Rectangle().opacity(0.45)
+        case .solid:
+          Rectangle().fill()
+        }
       case .oval:
-        Circle()
+        switch shading{
+        case .open:
+          Circle().stroke()
+        case .striped:
+          Circle().opacity(0.45)
+        case .solid:
+          Circle().fill()
+        }
       case .diamond:
-        Diamond()
+        switch shading{
+        case .open:
+          Diamond().stroke()
+        case .striped:
+          Diamond().opacity(0.45)
+        case .solid:
+          Diamond().fill()
+        }
       }
     }
   }
 }
+
+
