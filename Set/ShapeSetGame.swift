@@ -9,11 +9,11 @@ import SwiftUI
 
 class ShapeSetGame:ObservableObject{
   
-  static private let cardStyles = ShapeSetGameCardStyle()
+  static private let cardStyles = ShapeCardStyles()
   
-  typealias CardStlyes = ShapeSetGameCardStyle.CardStyle
+  typealias CardStlyes = ShapeCardStyles.CardStyle
   
-  typealias Card = SetGame<ShapeSetGameCardStyle.CardStyle>.Card
+  typealias Card = SetGame<ShapeCardStyles.CardStyle>.Card
   
   @Published private var model = SetGame<CardStlyes>(createUniqueCardStyles: cardStyles.generateUniqueCardStlyes)
   

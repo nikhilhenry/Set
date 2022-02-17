@@ -7,37 +7,37 @@
 
 import SwiftUI
 
-struct ShapeSetGameCardStyle{
+struct ShapeCardStyles{
   
-  enum cardNumbers:Int,CaseIterable {
+  enum numberOptions:Int,CaseIterable {
     case one = 1
     case two = 2
     case three = 3
   }
   
-  enum cardColors:CaseIterable{
+  enum colorOptions:CaseIterable{
     case green
     case blue
     case purple
   }
   
-  enum cardContents:CaseIterable{
+  enum contentOptions:CaseIterable{
     case squiggle
     case oval
     case diamond
   }
   
-  enum cardShadings:CaseIterable {
+  enum shaindOptions:CaseIterable {
     case striped
     case solid
     case open
   }
   
   struct CardStyle:SetCardStyle{
-    var contentNumber: cardNumbers
-    var cardContent: cardContents
-    var cardShading: cardShadings
-    var cardColor: cardColors
+    var contentNumber: numberOptions
+    var cardContent: contentOptions
+    var cardShading: shaindOptions
+    var cardColor: colorOptions
     
     func getContentColor() -> Color{
       switch self.cardColor{
@@ -54,10 +54,10 @@ struct ShapeSetGameCardStyle{
   
   func generateUniqueCardStlyes()->[CardStyle]{
     var cardStlyes:[CardStyle] = []
-    for cardNumber in cardNumbers.allCases{
-      for cardContent in cardContents.allCases{
-        for cardShading in cardShadings.allCases{
-          for cardColor in cardColors.allCases{
+    for cardNumber in numberOptions.allCases{
+      for cardContent in contentOptions.allCases{
+        for cardShading in shaindOptions.allCases{
+          for cardColor in colorOptions.allCases{
             cardStlyes
               .append(CardStyle(contentNumber: cardNumber, cardContent: cardContent, cardShading: cardShading, cardColor: cardColor))
           }
