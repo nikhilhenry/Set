@@ -9,9 +9,7 @@ import Foundation
 
 struct SetGame<CardStyle:SetCardStyle>{
   var cards:[Card]{ deck.filter{!$0.isInDeck} }
-  
-  private var deck:Array<Card> = []
-  
+  private var deck:[Card] = []
   
   init(createUniqueCardStyles:()->[CardStyle]){
 //  create cards for deck
