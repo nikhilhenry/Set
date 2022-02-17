@@ -17,49 +17,41 @@ struct CardView:View{
       RoundedRectangle(cornerRadius: 20).strokeBorder()
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
-          createCardContent().aspectRatio(2/1, contentMode: .fit)
+          createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
         }
       }
       .padding()
       .foregroundColor(cardStyle.getContentColor())
     }
   }
-  
-  private func createCardContent()-> some View{
-    ZStack{
-      let content = card.cardStyle.cardContent
-      let shading = card.cardStyle.cardShading
-      switch content {
-      case .squiggle:
-        switch shading{
-        case .open:
-          Rectangle().stroke()
-        case .striped:
-          Rectangle().opacity(0.45)
-        case .solid:
-          Rectangle().fill()
-        }
-      case .oval:
-        switch shading{
-        case .open:
-          Circle().stroke()
-        case .striped:
-          Circle().opacity(0.45)
-        case .solid:
-          Circle().fill()
-        }
-      case .diamond:
-        switch shading{
-        case .open:
-          Diamond().stroke()
-        case .striped:
-          Diamond().opacity(0.45)
-        case .solid:
-          Diamond().fill()
-        }
-      }
-    }
+}
+
+
+typealias Card = ShapeCardStyles
+
+@ViewBuilder private func createCardContent(cardStyle:Card.CardStyle)-> some View{
+  let content = cardStyle.cardContent
+  let shading = cardStyle.cardShading
+  switch content {
+  case .squiggle:
+    Rectangle().shade(with: shading)
+  case .oval:
+    Circle().shade(with:shading)
+  case .diamond:
+    Diamond().shade(with: shading)
   }
 }
 
+extension Shape{
+  @ViewBuilder func shade(with shadeOption:Card.shaindOptions) -> some View{
+    switch shadeOption{
+    case .open:
+      self.stroke()
+    case .striped:
+      self.opacity(0.45)
+    case .solid:
+      self.fill()
+    }
+  }
+}
 
