@@ -17,7 +17,7 @@ struct CardView:View{
       RoundedRectangle(cornerRadius: 20).strokeBorder()
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
-          createCardContent()
+          createCardContent().aspectRatio(2/1, contentMode: .fit)
         }
       }
       .padding()
