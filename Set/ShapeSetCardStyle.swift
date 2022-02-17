@@ -54,6 +54,7 @@ struct ShapeCardStyles{
   
   func generateUniqueCardStlyes()->[CardStyle]{
     var cardStlyes:[CardStyle] = []
+//  loop through all the enums to generate an CardStyle struct with all enum combinations
     for cardNumber in numberOptions.allCases{
       for cardContent in contentOptions.allCases{
         for cardShading in shaindOptions.allCases{
