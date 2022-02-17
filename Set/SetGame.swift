@@ -14,6 +14,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   init(createUniqueCardStyles:()->[CardStyle]){
     let cardStyles = createUniqueCardStyles()
     cardStyles.enumerated().forEach{cards.append(Card(id:$0,cardStyle:$1))}
+    cards.shuffle()
   }
   
   
