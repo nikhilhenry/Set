@@ -43,7 +43,7 @@ typealias Card = ShapeCardStyles
 }
 
 extension Shape{
-  @ViewBuilder func shade(with shadeOption:Card.shaindOptions) -> some View{
+  @ViewBuilder func shade(with shadeOption:Card.shadingOptions) -> some View{
     switch shadeOption{
     case .open:
       self.stroke()

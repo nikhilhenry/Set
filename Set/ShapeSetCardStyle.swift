@@ -27,7 +27,7 @@ struct ShapeCardStyles{
     case diamond
   }
   
-  enum shaindOptions:CaseIterable {
+  enum shadingOptions:CaseIterable {
     case striped
     case solid
     case open
@@ -36,7 +36,7 @@ struct ShapeCardStyles{
   struct CardStyle:SetCardStyle{
     var contentNumber: numberOptions
     var cardContent: contentOptions
-    var cardShading: shaindOptions
+    var cardShading: shadingOptions
     var cardColor: colorOptions
     
     func getContentColor() -> Color{
@@ -57,7 +57,7 @@ struct ShapeCardStyles{
 //  loop through all the enums to generate an CardStyle struct with all enum combinations
     for cardNumber in numberOptions.allCases{
       for cardContent in contentOptions.allCases{
-        for cardShading in shaindOptions.allCases{
+        for cardShading in shadingOptions.allCases{
           for cardColor in colorOptions.allCases{
             cardStlyes
               .append(CardStyle(contentNumber: cardNumber, cardContent: cardContent, cardShading: cardShading, cardColor: cardColor))
