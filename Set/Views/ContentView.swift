@@ -15,7 +15,7 @@ struct ContentView: View {
       Text("Set!").font(.largeTitle).foregroundColor(.black)
       ScrollView{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
-          ForEach(game.cards[0..<8]){ card in
+          ForEach(game.cards){ card in
             CardView(card: card)
               .aspectRatio(2/3, contentMode: .fit)
           }
