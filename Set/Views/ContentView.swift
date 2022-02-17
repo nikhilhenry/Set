@@ -14,7 +14,7 @@ struct ContentView: View {
     VStack{
       Text("Set!").font(.largeTitle).foregroundColor(.black)
       AspectVGrid(items:game.cards, aspectRatio: 2/3){ card in
-        CardView(card: card).padding(4)
+        CardView(card: card).padding(6)
       }
       .padding(.horizontal)
     }

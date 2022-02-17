@@ -14,7 +14,7 @@ struct CardView:View{
     let cardStyle = card.cardStyle
     ZStack{
       let shapeCount = cardStyle.contentNumber.rawValue
-      RoundedRectangle(cornerRadius: 20).strokeBorder()
+      RoundedRectangle(cornerRadius: 10).fill(.white).shadow(color: .gray, radius: 2, x: 0, y: 2)
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
           createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
