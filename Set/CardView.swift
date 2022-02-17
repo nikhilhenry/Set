@@ -27,9 +27,7 @@ struct CardView:View{
 }
 
 
-typealias Card = ShapeCardStyles
-
-@ViewBuilder private func createCardContent(cardStyle:Card.CardStyle)-> some View{
+@ViewBuilder private func createCardContent(cardStyle:ShapeCardStyles.CardStyle)-> some View{
   let content = cardStyle.cardContent
   let shading = cardStyle.cardShading
   switch content {
@@ -43,7 +41,7 @@ typealias Card = ShapeCardStyles
 }
 
 extension Shape{
-  @ViewBuilder func shade(with shadeOption:Card.shadingOptions) -> some View{
+  @ViewBuilder func shade(with shadeOption:ShapeCardStyles.shadingOptions) -> some View{
     switch shadeOption{
     case .open:
       self.stroke()
