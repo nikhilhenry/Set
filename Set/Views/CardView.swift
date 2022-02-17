@@ -14,7 +14,13 @@ struct CardView:View{
     let cardStyle = card.cardStyle
     ZStack{
       let shapeCount = cardStyle.contentNumber.rawValue
-      RoundedRectangle(cornerRadius: 10).fill(.white).shadow(color: .gray, radius: 2, x: 0, y: 2)
+      let shape = RoundedRectangle(cornerRadius: 10)
+      if card.isSelected{
+        shape.strokeBorder(.blue,lineWidth: 3)
+      }
+      else{
+        shape.fill(.white).shadow(color: .gray, radius: 2, x: 0, y: 2)
+      }
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
           createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
@@ -56,7 +62,7 @@ extension Shape{
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
     let cardStyle = ShapeCardStyles.CardStyle(contentNumber:.one, cardContent: .diamond, cardShading: .solid, cardColor: .purple)
-    let card = ShapeSetGame.Card(id: 1, cardStyle: cardStyle)
+    let card = ShapeSetGame.Card(id: 1, isSelected:true, cardStyle: cardStyle)
     CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
   }
 }
