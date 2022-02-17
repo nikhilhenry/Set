@@ -21,5 +21,9 @@ class ShapeSetGame:ObservableObject{
     return model.cards
   }
   
+  //  MARK: - Intent(s)
+  func choose(_ card:Card){
+    model.choose(card)
+  }
   
 }

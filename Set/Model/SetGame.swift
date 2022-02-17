@@ -20,6 +20,12 @@ struct SetGame<CardStyle:SetCardStyle>{
     deck.first(12).indices.forEach { deck[$0].isInDeck = false }
   }
   
+  mutating func choose(_ card:Card){
+    if let choosenIndex = cards.firstIndex(where: {$0.id == card.id}){
+      deck[choosenIndex].isSelected.toggle()
+    }
+}
+  
   
   struct Card:Identifiable {
     let id:Int
