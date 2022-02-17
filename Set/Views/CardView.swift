@@ -53,3 +53,10 @@ extension Shape{
   }
 }
 
+struct CardView_Previews: PreviewProvider {
+  static var previews: some View {
+    let cardStyle = ShapeCardStyles.CardStyle(contentNumber:.one, cardContent: .diamond, cardShading: .solid, cardColor: .purple)
+    let card = ShapeSetGame.Card(id: 1, cardStyle: cardStyle)
+    CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
+  }
+}
