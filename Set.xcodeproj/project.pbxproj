@@ -61,13 +61,11 @@
 		9F7B9D1A27BCB59900FE32E3 /* Set */ = {
 			isa = PBXGroup;
 			children = (
-				9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */,
-				9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */,
-				9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */,
-				9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */,
-				9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */,
+				9F82673B27BE8F28004CD395 /* Views */,
+				9F82673A27BE8F06004CD395 /* ViewModel */,
+				9F82673927BE8EED004CD395 /* Model */,
+				9F82673827BE8EDD004CD395 /* Shapes */,
 				9F7B9D1B27BCB59900FE32E3 /* SetApp.swift */,
-				9F7B9D1D27BCB59900FE32E3 /* ContentView.swift */,
 				9F7B9D1F27BCB59A00FE32E3 /* Assets.xcassets */,
 				9F7B9D2127BCB59A00FE32E3 /* Preview Content */,
 			);
@@ -80,6 +78,40 @@
 				9F7B9D2227BCB59A00FE32E3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9F82673827BE8EDD004CD395 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		9F82673927BE8EED004CD395 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9F82673A27BE8F06004CD395 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */,
+				9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9F82673B27BE8F28004CD395 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */,
+				9F7B9D1D27BCB59900FE32E3 /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
