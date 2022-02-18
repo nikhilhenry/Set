@@ -15,11 +15,16 @@ struct CardView:View{
     ZStack{
       let shapeCount = cardStyle.contentNumber.rawValue
       let shape = RoundedRectangle(cornerRadius: 10)
-      if card.isSelected{
-        shape.strokeBorder(.blue,lineWidth: 3)
-      }
-      else{
+      switch card.cardStatus{
+      case .isMatched:
+        shape.fill(.green).shadow(color: .gray, radius: 2, x: 0, y: 2)
+      case .isNotMatched:
+        shape.fill(.red).shadow(color: .gray, radius: 2, x: 0, y: 2)
+      case .none:
         shape.fill(.white).shadow(color: .gray, radius: 2, x: 0, y: 2)
+      }
+      if card.isSelected{
+        shape.stroke(.blue,lineWidth: 3)
       }
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in

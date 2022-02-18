@@ -36,7 +36,13 @@ struct SetGame<CardStyle:SetCardStyle>{
       selectedCardIndices.forEach({index in
         selectedCards.append(deck[index])
       })
-//      let matchStatus = checkMatch(within: selectedCards)
+      if checkMatch(within: selectedCards){
+        selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched }
+      }
+      else{
+        selectedCardIndices.forEach{deck[$0].cardStatus = .isNotMatched }
+      }
+      
     }
   }
   
