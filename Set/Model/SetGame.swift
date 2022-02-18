@@ -30,11 +30,17 @@ struct SetGame<CardStyle:SetCardStyle>{
     deck[choosenIndex].isSelected = true
 }
   
+  enum cardStatusOptions{
+    case isMatched
+    case isNotMatched
+    case none
+  }
   
   struct Card:Identifiable {
     let id:Int
     var isDealt = true
     var isSelected = false
+    var cardStatus:cardStatusOptions = .none
     let cardStyle:CardStyle
   }
 }
