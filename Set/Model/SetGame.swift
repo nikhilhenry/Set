@@ -16,7 +16,7 @@ struct SetGame<CardStyle:SetCardStyle>{
 //  create cards for deck
     let cardStyles = createUniqueCardStyles()
     cardStyles.enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    deck.shuffle()
+//    deck.shuffle()
 //  deal 12 cards from deck
     deck.first(12).indices.forEach { deck[$0].isDealt = false }
   }
@@ -32,10 +32,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count == 3{
 //    check for match
 //    get all the cards
-      var selectedCards:[Card] = []
-      selectedCardIndices.forEach({index in
-        selectedCards.append(deck[index])
-      })
+      let selectedCards:[Card] = selectedCardIndices.map({deck[$0]})
       if checkMatch(within: selectedCards){
         selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched }
       }
