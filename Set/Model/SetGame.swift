@@ -10,6 +10,7 @@ import Foundation
 struct SetGame<CardStyle:SetCardStyle>{
   var cards:[Card]{ deck.filter{!$0.isDealt} }
   private var deck:[Card] = []
+  private var selectedCardIndices:[Int] = []
   
   init(createUniqueCardStyles:()->[CardStyle]){
 //  create cards for deck
@@ -21,9 +22,12 @@ struct SetGame<CardStyle:SetCardStyle>{
   }
   
   mutating func choose(_ card:Card){
-    if let choosenIndex = cards.firstIndex(where: {$0.id == card.id}){
-      deck[choosenIndex].isSelected.toggle()
-    }
+    
+    if selectedCardIndices.count >= 3 {return}
+    
+    let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
+    selectedCardIndices.append(choosenIndex)
+    deck[choosenIndex].isSelected = true
 }
   
   
@@ -37,7 +41,8 @@ struct SetGame<CardStyle:SetCardStyle>{
 
 extension Array{
   func first(_ tillIndex:Int) -> [Element]{
-    Array(self[0..<tillIndex])
+    let upto = tillIndex > self.count ? self.count : tillIndex
+      return Array(self[0..<upto])
   }
 }
 
