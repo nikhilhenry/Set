@@ -14,17 +14,17 @@ struct CardView:View{
     let cardStyle = card.cardStyle
     ZStack{
       let shapeCount = cardStyle.contentNumber.rawValue
-      let shape = RoundedRectangle(cornerRadius: 10)
+      let shape = RoundedRectangle(cornerRadius: 10).stroke(lineWidth:3)
       switch card.cardStatus{
       case .isMatched:
-        shape.stroke().fill(.green)
+        shape.fill(.green)
       case .isNotMatched:
-        shape.stroke().fill(.red)
+        shape.fill(.red)
       case .none:
-        shape.stroke().fill(.black)
+        shape.fill(.black)
       }
       if card.isSelected && card.cardStatus == .none{
-        shape.stroke(.blue,lineWidth: 3)
+        shape.fill(.blue)
       }
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
