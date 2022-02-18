@@ -14,18 +14,7 @@ struct CardView:View{
     let cardStyle = card.cardStyle
     ZStack{
       let shapeCount = cardStyle.contentNumber.rawValue
-      let shape = RoundedRectangle(cornerRadius: 10).stroke(lineWidth:3)
-      switch card.cardStatus{
-      case .isMatched:
-        shape.fill(.green)
-      case .isNotMatched:
-        shape.fill(.red)
-      case .none:
-        shape.fill(.black)
-      }
-      if card.isSelected && card.cardStatus == .none{
-        shape.fill(.blue)
-      }
+      createCardBorder(card: card)
       VStack{
         ForEach(0..<shapeCount,id:\.self){ index in
           createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
@@ -37,6 +26,20 @@ struct CardView:View{
   }
 }
 
+@ViewBuilder private func createCardBorder(card:ShapeSetGame.Card) -> some View{
+  let shape = RoundedRectangle(cornerRadius: 10).stroke(lineWidth:3)
+  switch card.cardStatus{
+  case .isMatched:
+    shape.fill(.green)
+  case .isNotMatched:
+    shape.fill(.red)
+  case .none:
+    shape.fill(.black)
+  }
+  if card.isSelected && card.cardStatus == .none{
+    shape.fill(.blue)
+  }
+}
 
 @ViewBuilder private func createCardContent(cardStyle:ShapeCardStyles.CardStyle)-> some View{
   let content = cardStyle.cardContent
