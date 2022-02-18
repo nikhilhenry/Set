@@ -8,17 +8,16 @@
 import Foundation
 
 struct SetGame<CardStyle:SetCardStyle>{
-  var cards:[Card]{ deck.filter{!$0.isDealt} }
+  var cards:[Card]{ deck.filter{$0.isDealt} }
   private var deck:[Card] = []
   private var selectedCardIndices:[Int] = []
   
   init(createUniqueCardStyles:()->[CardStyle]){
 //  create cards for deck
-    let cardStyles = createUniqueCardStyles()
-    cardStyles.enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
-//    deck.shuffle()
+    createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
+    deck.shuffle()
 //  deal 12 cards from deck
-    deck.first(12).indices.forEach { deck[$0].isDealt = false }
+    deck.first(12).indices.forEach { deck[$0].isDealt = true }
   }
   
   mutating func choose(_ card:Card){
@@ -55,7 +54,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   
   struct Card:Identifiable {
     let id:Int
-    var isDealt = true
+    var isDealt = false
     var isSelected = false
     var cardStatus:cardStatusOptions = .none
     let cardStyle:CardStyle
