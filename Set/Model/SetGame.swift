@@ -26,6 +26,16 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count >= 3 {return}
     
     let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
+    
+    if selectedCardIndices.contains(where: {$0 == choosenIndex}){
+      deck[choosenIndex].isSelected.toggle()
+      selectedCardIndices
+        .remove(at: selectedCardIndices
+                  .firstIndex(of: choosenIndex)!
+        )
+      return
+    }
+    
     selectedCardIndices.append(choosenIndex)
     deck[choosenIndex].isSelected = true
     
