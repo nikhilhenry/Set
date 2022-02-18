@@ -17,13 +17,13 @@ struct CardView:View{
       let shape = RoundedRectangle(cornerRadius: 10)
       switch card.cardStatus{
       case .isMatched:
-        shape.fill(.green).shadow(color: .gray, radius: 2, x: 0, y: 2)
+        shape.stroke().fill(.green)
       case .isNotMatched:
-        shape.fill(.red).shadow(color: .gray, radius: 2, x: 0, y: 2)
+        shape.stroke().fill(.red)
       case .none:
-        shape.fill(.white).shadow(color: .gray, radius: 2, x: 0, y: 2)
+        shape.stroke().fill(.black)
       }
-      if card.isSelected{
+      if card.isSelected && card.cardStatus == .none{
         shape.stroke(.blue,lineWidth: 3)
       }
       VStack{
