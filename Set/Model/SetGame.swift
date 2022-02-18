@@ -17,7 +17,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     let cardStyles = createUniqueCardStyles()
     cardStyles.enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
     deck.shuffle()
-//  remove 12 cards from deck
+//  deal 12 cards from deck
     deck.first(12).indices.forEach { deck[$0].isDealt = false }
   }
   
