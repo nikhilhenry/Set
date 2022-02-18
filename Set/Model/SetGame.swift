@@ -27,12 +27,10 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
     
-    if selectedCardIndices.contains(where: {$0 == choosenIndex}){
-      deck[choosenIndex].isSelected.toggle()
-      selectedCardIndices
-        .remove(at: selectedCardIndices
-                  .firstIndex(of: choosenIndex)!
-        )
+//  deselect the card
+    if let selectedIndex = selectedCardIndices.firstIndex(of: choosenIndex){
+      selectedCardIndices.remove(at: selectedIndex)
+      deck[choosenIndex].isSelected = false
       return
     }
     
