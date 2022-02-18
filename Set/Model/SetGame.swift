@@ -30,16 +30,9 @@ struct SetGame<CardStyle:SetCardStyle>{
     deck[choosenIndex].isSelected = true
     
     if selectedCardIndices.count == 3{
-//    check for match
-//    get all the cards
       let selectedCards:[Card] = selectedCardIndices.map({deck[$0]})
-      if checkMatch(within: selectedCards){
-        selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched }
-      }
-      else{
-        selectedCardIndices.forEach{deck[$0].cardStatus = .isNotMatched }
-      }
-      
+      checkMatch(within: selectedCards) ?
+      selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched } : selectedCardIndices.forEach{deck[$0].cardStatus = .isNotMatched }
     }
   }
   
