@@ -28,7 +28,27 @@ struct SetGame<CardStyle:SetCardStyle>{
     let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
     selectedCardIndices.append(choosenIndex)
     deck[choosenIndex].isSelected = true
-}
+    
+    if selectedCardIndices.count == 3{
+//    check for match
+//    get all the cards
+      var selectedCards:[Card] = []
+      selectedCardIndices.forEach({index in
+        selectedCards.append(deck[index])
+      })
+//      let matchStatus = checkMatch(within: selectedCards)
+    }
+  }
+  
+  private func checkMatch(within cards:[Card]) -> Bool{
+    
+    var cardStyles:[CardStyle] = []
+    cards.forEach{ card in
+      cardStyles.append(card.cardStyle)
+    }
+    
+    return Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement
+  }
   
   enum cardStatusOptions{
     case isMatched
@@ -52,9 +72,15 @@ extension Array{
   }
 }
 
+extension Set{
+  var satisfySetRequirement:Bool{
+    return count == 1 || count == 3
+  }
+}
+
 
 protocol SetCardStyle{
-  associatedtype ContentNumber
+  associatedtype ContentNumber:Hashable
   associatedtype CardContent
   associatedtype CardShading
   associatedtype CardColor
