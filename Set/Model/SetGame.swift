@@ -39,10 +39,10 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     let cardStyles:[CardStyle] = cards.map{$0.cardStyle}
     
-    guard Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement else { return false}
-    guard Set(cardStyles.map({$0.cardContent})).satisfySetRequirement else { return false}
-    guard Set(cardStyles.map({$0.cardColor})).satisfySetRequirement else { return false}
-    guard Set(cardStyles.map({$0.cardShading})).satisfySetRequirement else { return false}
+    guard Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement else { return false }
+    guard Set(cardStyles.map({$0.cardContent})).satisfySetRequirement else { return false }
+    guard Set(cardStyles.map({$0.cardColor})).satisfySetRequirement else { return false }
+    guard Set(cardStyles.map({$0.cardShading})).satisfySetRequirement else { return false }
     
     return true
   }
