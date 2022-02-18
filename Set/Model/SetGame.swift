@@ -37,10 +37,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   
   private func checkMatch(within cards:[Card]) -> Bool{
     
-    var cardStyles:[CardStyle] = []
-    cards.forEach{ card in
-      cardStyles.append(card.cardStyle)
-    }
+    let cardStyles:[CardStyle] = cards.map{$0.cardStyle}
     
     guard Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement else { return false}
     guard Set(cardStyles.map({$0.cardContent})).satisfySetRequirement else { return false}
