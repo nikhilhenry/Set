@@ -47,7 +47,12 @@ struct SetGame<CardStyle:SetCardStyle>{
       cardStyles.append(card.cardStyle)
     }
     
-    return Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement
+    guard Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement else { return false}
+    guard Set(cardStyles.map({$0.cardContent})).satisfySetRequirement else { return false}
+    guard Set(cardStyles.map({$0.cardColor})).satisfySetRequirement else { return false}
+    guard Set(cardStyles.map({$0.cardShading})).satisfySetRequirement else { return false}
+    
+    return true
   }
   
   enum cardStatusOptions{
@@ -81,9 +86,9 @@ extension Set{
 
 protocol SetCardStyle{
   associatedtype ContentNumber:Hashable
-  associatedtype CardContent
-  associatedtype CardShading
-  associatedtype CardColor
+  associatedtype CardContent:Hashable
+  associatedtype CardShading:Hashable
+  associatedtype CardColor:Hashable
   var contentNumber:ContentNumber { get }
   var cardContent:CardContent { get }
   var cardShading:CardShading { get }
