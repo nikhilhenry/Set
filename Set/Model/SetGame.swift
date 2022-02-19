@@ -29,16 +29,12 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count > 3 {return}
     
     if setFound {
-      
-//    deal 3 cards
       selectedCardIndices.forEach{ index in
         let card = deck.filter{!$0.isDealt}[0]
 //      deal that card
-        let cardIndex = deck.firstIndex(where: {$0.id == card.id})
-        deck[cardIndex!].isDealt = true
+        deck[card.id].isDealt = true
         cards[index] = card
       }
-      
       setFound = false
       return
     }
