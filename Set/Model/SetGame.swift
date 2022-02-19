@@ -8,27 +8,42 @@
 import Foundation
 
 struct SetGame<CardStyle:SetCardStyle>{
-  var cards:[Card]{ deck.filter{$0.isDealt} }
+  private (set) var cards:[Card] = []
   private var deck:[Card] = []
   private var selectedCardIndices:[Int]{
-    get { cards.indices.filter{deck[$0].isSelected} }
-    set { cards.indices.forEach{deck[$0].isSelected = newValue.contains($0)} }
+    get { cards.indices.filter{cards[$0].isSelected} }
+    set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
   }
+  private var setFound = false
   
   init(createUniqueCardStyles:()->[CardStyle]){
 //  create cards for deck
     createUniqueCardStyles().enumerated()
       .forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    deck.shuffle()
 //  deal 12 cards from deck
-    deck.first(12).indices.forEach { deck[$0].isDealt = true }
+    deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
   }
   
   mutating func choose(_ card:Card){
     
-    if selectedCardIndices.count >= 3 {return}
+    if selectedCardIndices.count > 3 {return}
     
-    let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
+    if setFound {
+      
+//    deal 3 cards
+      selectedCardIndices.forEach{ index in
+        let card = deck.filter{!$0.isDealt}[0]
+//      deal that card
+        let cardIndex = deck.firstIndex(where: {$0.id == card.id})
+        deck[cardIndex!].isDealt = true
+        cards[index] = card
+      }
+      
+      setFound = false
+      return
+    }
+    
+    let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
     
 //  deselect the card if already chosen
     if let selectedIndex = selectedCardIndices.firstIndex(of: choosenIndex){
@@ -38,10 +53,9 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     selectedCardIndices.append(choosenIndex)
     
-    if selectedCardIndices.count == 3{
-      selectedCardIndices.map{deck[$0].cardStyle}
-      .satisfiesSetRequirement ?
-      selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched } : selectedCardIndices.forEach{deck[$0].cardStatus = .isNotMatched }
+    if selectedCardIndices.count == 3 {
+      setFound = selectedCardIndices.map{cards[$0].cardStyle}.satisfiesSetRequirement
+      setFound ? selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched} : selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
     }
   }
   
