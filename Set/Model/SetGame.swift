@@ -39,21 +39,10 @@ struct SetGame<CardStyle:SetCardStyle>{
     selectedCardIndices.append(choosenIndex)
     
     if selectedCardIndices.count == 3{
-      isSet(within:(selectedCardIndices.map{deck[$0]})) ?
+      selectedCardIndices.map{deck[$0].cardStyle}
+      .satisfiesSetRequirement ?
       selectedCardIndices.forEach{deck[$0].cardStatus = .isMatched } : selectedCardIndices.forEach{deck[$0].cardStatus = .isNotMatched }
     }
-  }
-  
-  private func isSet(within cards:[Card]) -> Bool{
-    
-    let cardStyles:[CardStyle] = cards.map{$0.cardStyle}
-    
-    guard Set(cardStyles.map({$0.contentNumber})).satisfySetRequirement else { return false }
-    guard Set(cardStyles.map({$0.cardContent})).satisfySetRequirement else { return false }
-    guard Set(cardStyles.map({$0.cardColor})).satisfySetRequirement else { return false }
-    guard Set(cardStyles.map({$0.cardShading})).satisfySetRequirement else { return false }
-    
-    return true
   }
   
   enum cardStatusOptions{
@@ -81,6 +70,17 @@ extension Array{
 extension Set{
   var satisfySetRequirement:Bool{
     return count == 1 || count == 3
+  }
+}
+
+extension Array where Element:SetCardStyle{
+  var satisfiesSetRequirement:Bool{
+    guard Set(self.map({$0.contentNumber})).satisfySetRequirement else { return false }
+    guard Set(self.map({$0.cardContent})).satisfySetRequirement else { return false }
+    guard Set(self.map({$0.cardColor})).satisfySetRequirement else { return false }
+    guard Set(self.map({$0.cardShading})).satisfySetRequirement else { return false }
+    
+    return true
   }
 }
 
