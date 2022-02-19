@@ -10,7 +10,10 @@ import Foundation
 struct SetGame<CardStyle:SetCardStyle>{
   var cards:[Card]{ deck.filter{$0.isDealt} }
   private var deck:[Card] = []
-  private var selectedCardIndices:[Int] = []
+  private var selectedCardIndices:[Int]{
+    get { cards.indices.filter{deck[$0].isSelected} }
+    set { cards.indices.forEach{deck[$0].isSelected = newValue.contains($0)} }
+  }
   
   init(createUniqueCardStyles:()->[CardStyle]){
 //  create cards for deck
@@ -27,15 +30,13 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     let choosenIndex = deck.firstIndex(where: {$0.id == card.id})!
     
-//  deselect the card
+//  deselect the card if already chosen
     if let selectedIndex = selectedCardIndices.firstIndex(of: choosenIndex){
       selectedCardIndices.remove(at: selectedIndex)
-      deck[choosenIndex].isSelected = false
       return
     }
     
     selectedCardIndices.append(choosenIndex)
-    deck[choosenIndex].isSelected = true
     
     if selectedCardIndices.count == 3{
       isSet(within:(selectedCardIndices.map{deck[$0]})) ?
