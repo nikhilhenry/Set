@@ -62,7 +62,19 @@ struct SetGame<CardStyle:SetCardStyle>{
     }
   }
   
-  
+  mutating func dealNewCards(){
+    if setFound == true{
+      replaceCards()
+    }
+    else{
+    // deal 3 new cards to existing cards set
+      deck.filter{!$0.isDealt}[...2].forEach{card in
+        deck[card.id].isDealt = true;
+        cards.append(card)
+      }
+    }
+  }
+
   mutating private func replaceCards(){
     if (deck.filter{!$0.isDealt}.count > 0){
       selectedCardIndices.forEach{ index in

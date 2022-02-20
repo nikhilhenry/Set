@@ -18,6 +18,13 @@ struct ContentView: View {
           .onTapGesture { game.choose(card) }
       }
       .padding(.horizontal)
+      Button{
+        game.dealNewCards()
+      }
+    label:{
+      Text("Deal 3 More Cards")
+    }
+    .buttonStyle(.borderedProminent)
     }
   }
 }

@@ -25,5 +25,7 @@ class ShapeSetGame:ObservableObject{
   func choose(_ card:Card){
     model.choose(card)
   }
-  
+  func dealNewCards(){
+    model.dealNewCards()
+  }
 }
