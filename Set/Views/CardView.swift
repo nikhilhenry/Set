@@ -46,7 +46,8 @@ struct CardView:View{
   let shading = cardStyle.cardShading
   switch content {
   case .squiggle:
-    Rectangle().shade(with: shading)
+    //  Extra-credit-1
+    Squiggle().shade(with: shading)
   case .oval:
     Circle().shade(with:shading)
   case .diamond:
@@ -69,7 +70,7 @@ extension Shape{
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    let cardStyle = ShapeCardStyles.CardStyle(contentNumber:.one, cardContent: .diamond, cardShading: .solid, cardColor: .purple)
+    let cardStyle = ShapeCardStyles.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .solid, cardColor: .purple)
     let card = ShapeSetGame.Card(id: 1, isSelected:true, cardStyle: cardStyle)
     CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
   }

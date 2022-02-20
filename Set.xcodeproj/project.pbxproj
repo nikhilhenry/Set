@@ -17,6 +17,7 @@
 		9F7B9D2E27BCCEE800FE32E3 /* ShapeSetCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */; };
 		9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */; };
 		9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */; };
+		9FDAC3F727C20E840082165D /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAC3F627C20E840082165D /* Squiggle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetCardStyle.swift; sourceTree = "<group>"; };
 		9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
+		9FDAC3F627C20E840082165D /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */,
+				9FDAC3F627C20E840082165D /* Squiggle.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				9F2F8AE427BE962F00CC2057 /* AspectVGrid.swift in Sources */,
 				9F7B9D2C27BCBC0100FE32E3 /* ShapeSetGame.swift in Sources */,
 				9F7B9D1E27BCB59900FE32E3 /* ContentView.swift in Sources */,
+				9FDAC3F727C20E840082165D /* Squiggle.swift in Sources */,
 				9F7B9D2A27BCB5EF00FE32E3 /* SetGame.swift in Sources */,
 				9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */,
 				9F7B9D1C27BCB59900FE32E3 /* SetApp.swift in Sources */,
