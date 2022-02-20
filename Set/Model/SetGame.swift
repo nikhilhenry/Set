@@ -37,8 +37,11 @@ struct SetGame<CardStyle:SetCardStyle>{
       else{
         replaceCards()
       }
-    }else if setFound == false{
-      // deselect the cards
+    }
+    else if setFound == false{
+      // remove matched status
+      selectedCardIndices.forEach{cards[$0].cardStatus = .none}
+      // deselect those cardds
       selectedCardIndices = []
       setFound = .none
     }
