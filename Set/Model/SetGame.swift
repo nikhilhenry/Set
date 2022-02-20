@@ -29,23 +29,15 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count > 3 {return}
     
     if setFound{
-      if (deck.filter{!$0.isDealt}.count > 0){
-        selectedCardIndices.forEach{ index in
-          let card = deck.filter{!$0.isDealt}[0]
-          // deal that card
-          deck[card.id].isDealt = true
-          cards[index] = card
-        }
-      }else{
-        // remove those three cards
-        selectedCardIndices.map{cards[$0]}
-        .forEach{ card in
-          guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
-          cards.remove(at: cardIndex)
-        }
-      }
       setFound = false
-      return
+      let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
+      if selectedCardIndices.contains(choosenIndex){
+        replaceCards()
+        return
+      }
+      else{
+        replaceCards()
+      }
     }
     
     let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
@@ -61,6 +53,26 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count == 3 {
       setFound = selectedCardIndices.map{cards[$0].cardStyle}.satisfiesSetRequirement
       setFound ? selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched} : selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+    }
+  }
+  
+  
+  mutating private func replaceCards(){
+    if (deck.filter{!$0.isDealt}.count > 0){
+      selectedCardIndices.forEach{ index in
+        let card = deck.filter{!$0.isDealt}[0]
+        // deal that card
+        deck[card.id].isDealt = true
+        cards[index] = card
+      }
+    }
+    else{
+      // remove those three cards
+      selectedCardIndices.map{cards[$0]}
+      .forEach{ card in
+        guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
+        cards.remove(at: cardIndex)
+      }
     }
   }
   
