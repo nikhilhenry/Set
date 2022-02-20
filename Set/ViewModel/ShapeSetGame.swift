@@ -32,4 +32,7 @@ class ShapeSetGame:ObservableObject{
   func dealNewCards(){
     model.dealNewCards()
   }
+  func startNewGame(){
+    model = SetGame<CardStlyes>(createUniqueCardStyles: ShapeSetGame.cardStyles.generateUniqueCardStlyes)
+  }
 }

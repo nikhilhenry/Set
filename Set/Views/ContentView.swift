@@ -21,8 +21,11 @@ struct ContentView: View {
       if game.deckCount > 0 {
         Button{game.dealNewCards()}
         label:{Text("Deal 3 More Cards")}
-        .buttonStyle(.borderedProminent)
+          .buttonStyle(.borderedProminent)
       }
+      Button{game.startNewGame()}
+      label:{Text("New Game")}
+      .buttonStyle(.bordered)
     }
   }
 }

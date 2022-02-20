@@ -21,6 +21,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     //  create cards for deck
     createUniqueCardStyles().enumerated()
       .forEach{deck.append(Card(id:$0,cardStyle:$1))}
+    deck.shuffle()
     //  deal 12 cards from deck
     deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
   }
