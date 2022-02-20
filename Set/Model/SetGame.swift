@@ -14,7 +14,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     get { cards.indices.filter{cards[$0].isSelected} }
     set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
   }
-  private var setFound = false
+  private var setFound:Bool? = .none
   
   init(createUniqueCardStyles:()->[CardStyle]){
     //  create cards for deck
@@ -27,8 +27,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   mutating func choose(_ card:Card){
     
     if selectedCardIndices.count > 3 {return}
-    
-    if setFound{
+    if setFound == true {
       setFound = false
       let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
       if selectedCardIndices.contains(choosenIndex){
@@ -38,6 +37,10 @@ struct SetGame<CardStyle:SetCardStyle>{
       else{
         replaceCards()
       }
+    }else if setFound == false{
+      // deselect the cards
+      selectedCardIndices = []
+      setFound = .none
     }
     
     let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
@@ -52,7 +55,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     if selectedCardIndices.count == 3 {
       setFound = selectedCardIndices.map{cards[$0].cardStyle}.satisfiesSetRequirement
-      setFound ? selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched} : selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+      setFound! ? selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched} : selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
     }
   }
   
