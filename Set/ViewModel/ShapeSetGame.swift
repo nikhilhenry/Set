@@ -21,6 +21,10 @@ class ShapeSetGame:ObservableObject{
     return model.cards
   }
   
+  var deckCount:Int{
+    return model.deckCount
+  }
+  
   //  MARK: - Intent(s)
   func choose(_ card:Card){
     model.choose(card)

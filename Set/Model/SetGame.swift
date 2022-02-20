@@ -15,6 +15,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
   }
   private var setFound:Bool? = .none
+  var deckCount:Int{deck.filter{!$0.isDealt}.count}
   
   init(createUniqueCardStyles:()->[CardStyle]){
     //  create cards for deck
