@@ -28,12 +28,24 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     if selectedCardIndices.count > 3 {return}
     
-    if setFound {
+    if setFound{
+      if (deck.filter{!$0.isDealt}.count > 0){
       selectedCardIndices.forEach{ index in
         let card = deck.filter{!$0.isDealt}[0]
 //      deal that card
         deck[card.id].isDealt = true
         cards[index] = card
+        }
+      }else{
+//      remove those three cards
+        let selectedCards = selectedCardIndices.map{cards[$0]}
+        selectedCards.forEach{ card in
+          if let cardIndex = cards.firstIndex(where: {$0.id == card.id}){
+          cards.remove(at: cardIndex)
+          }else{
+            print("card not found")
+          }
+        }
       }
       setFound = false
       return
