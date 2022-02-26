@@ -18,17 +18,16 @@ struct GameView: View {
           .onTapGesture { game.choose(card) }
       }
       .padding(.horizontal)
-      discardPile
-      controls
+      cardPiles
     }
   }
-  var discardPile: some View{
-    ZStack{
-      ForEach(game.descardedCards){card in
-        CardView(card: card).aspectRatio(2/3, contentMode: .fit)
-          .frame(width: 60, height: 90, alignment: .center)
-      }
+  var cardPiles: some View{
+    HStack{
+      CardPile(items: game.deck)
+      Spacer()
+      CardPile(items: game.descardedCards)
     }
+    .padding(.horizontal)
   }
   var controls: some View{
     HStack{
@@ -38,6 +37,18 @@ struct GameView: View {
       }
         Button{game.startNewGame()}label:{Text("New Game")}
           .buttonStyle(.bordered)
+    }
+  }
+}
+
+struct CardPile:View{
+  var items: [ShapeSetGame.Card]
+  var body: some View{
+    ZStack{
+      ForEach(items.reversed()){card in
+        CardView(card: card).aspectRatio(2/3, contentMode: .fit)
+          .frame(width: 60, height: 90, alignment: .center)
+      }
     }
   }
 }
