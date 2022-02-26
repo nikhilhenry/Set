@@ -16,6 +16,7 @@
 		9F7B9D2C27BCBC0100FE32E3 /* ShapeSetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */; };
 		9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */; };
 		9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */; };
+		9FBB52BF27CA8E7A00B78728 /* StrippedPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBB52BE27CA8E7A00B78728 /* StrippedPattern.swift */; };
 		9FDAC3F727C20E840082165D /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAC3F627C20E840082165D /* Squiggle.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetGame.swift; sourceTree = "<group>"; };
 		9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
+		9FBB52BE27CA8E7A00B78728 /* StrippedPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrippedPattern.swift; sourceTree = "<group>"; };
 		9FDAC3F627C20E840082165D /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 			children = (
 				9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */,
 				9FDAC3F627C20E840082165D /* Squiggle.swift */,
+				9FBB52BE27CA8E7A00B78728 /* StrippedPattern.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				9F7B9D2C27BCBC0100FE32E3 /* ShapeSetGame.swift in Sources */,
 				9F7B9D1E27BCB59900FE32E3 /* GameView.swift in Sources */,
 				9FDAC3F727C20E840082165D /* Squiggle.swift in Sources */,
+				9FBB52BF27CA8E7A00B78728 /* StrippedPattern.swift in Sources */,
 				9F7B9D2A27BCB5EF00FE32E3 /* SetGame.swift in Sources */,
 				9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */,
 				9F7B9D1C27BCB59900FE32E3 /* SetApp.swift in Sources */,

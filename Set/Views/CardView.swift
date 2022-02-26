@@ -60,8 +60,15 @@ extension Shape{
     switch shadeOption{
     case .open:
       self.stroke()
+//  Extra-credit 2
     case .striped:
-      self.opacity(0.45)
+      ZStack{
+        GeometryReader{geometry in
+          StripedPattern(stripeWidth: max(1, Int(geometry.size.width) / 20))
+            .mask(self)
+        }
+        self.stroke()
+      }
     case .solid:
       self.fill()
     }
@@ -70,7 +77,7 @@ extension Shape{
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    let cardStyle = ShapeSetGame.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .solid, cardColor: .purple)
+    let cardStyle = ShapeSetGame.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .striped, cardColor: .purple)
     let card = ShapeSetGame.Card(id: 1, isSelected:true, cardStyle: cardStyle)
     CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
   }
