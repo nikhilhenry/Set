@@ -61,8 +61,11 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count == 3 {
       if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement{
         selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched}
-      }else{
+        setFound = true
+      }
+      else{
         selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+        setFound = false
       }
     }
   }
