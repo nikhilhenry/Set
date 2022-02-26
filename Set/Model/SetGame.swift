@@ -83,7 +83,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     }
   }
   
-  // Onlt run if three cards are present
+  // Only run if three cards are present
   mutating private func replaceCards(){
     if selectedCardIndices.count < 3 {return}
     if (deck.filter{!$0.isDealt}.count > 0){
