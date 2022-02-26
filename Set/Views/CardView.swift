@@ -11,18 +11,23 @@ struct CardView:View{
   let card:ShapeSetGame.Card
   
   var body: some View{
-    let cardStyle = card.cardStyle
-    ZStack{
-      Rectangle().fill(.white)
-      let shapeCount = cardStyle.contentNumber.rawValue
-      createCardBorder(card: card)
-      VStack{
-        ForEach(0..<shapeCount,id:\.self){ index in
-          createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
+    if !card.isDealt{
+      RoundedRectangle(cornerRadius: 10).fill(.cyan)
+    }
+    else{
+      let cardStyle = card.cardStyle
+      ZStack{
+        Rectangle().fill(.white)
+        let shapeCount = cardStyle.contentNumber.rawValue
+        createCardBorder(card: card)
+        VStack{
+          ForEach(0..<shapeCount,id:\.self){ index in
+            createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
+          }
         }
+        .padding()
+        .foregroundColor(cardStyle.getContentColor())
       }
-      .padding()
-      .foregroundColor(cardStyle.getContentColor())
     }
   }
 }

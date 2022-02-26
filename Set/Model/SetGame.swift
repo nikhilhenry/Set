@@ -27,7 +27,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
     //    deck.shuffle()
     // deal 12 cards from deck
-    deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
+    deck.first(12).indices.forEach {deck[$0].isDealt = true; cards.append(deck[$0])}
   }
   
   mutating func choose(_ card:Card){
@@ -78,6 +78,7 @@ struct SetGame<CardStyle:SetCardStyle>{
       deck.filter{!$0.isDealt}.first(3).forEach{card in
         // deal that card
         dealCard(card.id)
+        var card = card; card.isDealt = true
         cards.append(card)
       }
     }
