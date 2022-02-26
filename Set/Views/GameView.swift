@@ -23,9 +23,10 @@ struct GameView: View {
   }
   var cardPiles: some View{
     HStack{
-      CardPile(items: game.deck)
+      cardPile(for: game.deck)
+        .onTapGesture {game.dealNewCards()}
       Spacer()
-      CardPile(items: game.descardedCards)
+      cardPile(for: game.descardedCards)
     }
     .padding(.horizontal)
   }
@@ -39,11 +40,7 @@ struct GameView: View {
           .buttonStyle(.bordered)
     }
   }
-}
-
-struct CardPile:View{
-  var items: [ShapeSetGame.Card]
-  var body: some View{
+  private func cardPile(for items:[ShapeSetGame.Card]) -> some View{
     ZStack{
       ForEach(items.reversed()){card in
         CardView(card: card).aspectRatio(2/3, contentMode: .fit)
