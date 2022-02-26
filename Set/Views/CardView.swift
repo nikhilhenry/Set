@@ -41,7 +41,7 @@ struct CardView:View{
   }
 }
 
-@ViewBuilder private func createCardContent(cardStyle:ShapeCardStyles.CardStyle)-> some View{
+@ViewBuilder private func createCardContent(cardStyle:ShapeSetGame.CardStyle)-> some View{
   let content = cardStyle.cardContent
   let shading = cardStyle.cardShading
   switch content {
@@ -56,7 +56,7 @@ struct CardView:View{
 }
 
 extension Shape{
-  @ViewBuilder func shade(with shadeOption:ShapeCardStyles.shadingOptions) -> some View{
+  @ViewBuilder func shade(with shadeOption:ShapeSetGame.shadingOptions) -> some View{
     switch shadeOption{
     case .open:
       self.stroke()
@@ -70,7 +70,7 @@ extension Shape{
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    let cardStyle = ShapeCardStyles.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .solid, cardColor: .purple)
+    let cardStyle = ShapeSetGame.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .solid, cardColor: .purple)
     let card = ShapeSetGame.Card(id: 1, isSelected:true, cardStyle: cardStyle)
     CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
   }

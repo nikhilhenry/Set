@@ -14,7 +14,6 @@
 		9F7B9D2327BCB59A00FE32E3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2227BCB59A00FE32E3 /* Preview Assets.xcassets */; };
 		9F7B9D2A27BCB5EF00FE32E3 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */; };
 		9F7B9D2C27BCBC0100FE32E3 /* ShapeSetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */; };
-		9F7B9D2E27BCCEE800FE32E3 /* ShapeSetCardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */; };
 		9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */; };
 		9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */; };
 		9FDAC3F727C20E840082165D /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDAC3F627C20E840082165D /* Squiggle.swift */; };
@@ -29,7 +28,6 @@
 		9F7B9D2227BCB59A00FE32E3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9F7B9D2927BCB5EF00FE32E3 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetGame.swift; sourceTree = "<group>"; };
-		9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetCardStyle.swift; sourceTree = "<group>"; };
 		9F7B9D2F27BCD78F00FE32E3 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9F7B9D3127BCE15D00FE32E3 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		9FDAC3F627C20E840082165D /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 		9F82673A27BE8F06004CD395 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9F7B9D2D27BCCEE800FE32E3 /* ShapeSetCardStyle.swift */,
 				9F7B9D2B27BCBC0100FE32E3 /* ShapeSetGame.swift */,
 			);
 			path = ViewModel;
@@ -198,7 +195,6 @@
 				9F7B9D3227BCE15D00FE32E3 /* Diamond.swift in Sources */,
 				9F7B9D1C27BCB59900FE32E3 /* SetApp.swift in Sources */,
 				9F7B9D3027BCD78F00FE32E3 /* CardView.swift in Sources */,
-				9F7B9D2E27BCCEE800FE32E3 /* ShapeSetCardStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
