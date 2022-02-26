@@ -75,7 +75,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     }
     else{
       // deal 3 new cards to existing cards set
-      deck.filter{!$0.isDealt}[...2].forEach{card in
+      deck.filter{!$0.isDealt}.first(3).forEach{card in
         // deal that card
         dealCard(card.id)
         cards.append(card)
