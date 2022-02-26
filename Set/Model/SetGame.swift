@@ -14,14 +14,19 @@ struct SetGame<CardStyle:SetCardStyle>{
     get { cards.indices.filter{cards[$0].isSelected} }
     set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
   }
-  private var setFound:Bool? = .none
+  private var setStatus:cardStatusOptions{
+    if selectedCardIndices.count > 0 {
+      return cards[selectedCardIndices[0]].cardStatus
+    }
+    else{ return .none}
+  }
   var deckCount:Int{deck.filter{!$0.isDealt}.count}
   
   init(createUniqueCardStyles:()->[CardStyle]){
     //  create cards for deck
     createUniqueCardStyles().enumerated()
       .forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    deck.shuffle()
+//    deck.shuffle()
     //  deal 12 cards from deck
     deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
   }
@@ -29,23 +34,20 @@ struct SetGame<CardStyle:SetCardStyle>{
   mutating func choose(_ card:Card){
     
     if selectedCardIndices.count > 3 {return}
-    if setFound == true {
-      setFound = false
+    
+    switch setStatus {
+    case .isMatched:
       let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
-      if selectedCardIndices.contains(choosenIndex){
-        replaceCards()
-        return
-      }
-      else{
-        replaceCards()
-      }
-    }
-    else if setFound == false{
+      //    do not select a card if choosen card is matched ie already selected
+      if selectedCardIndices.contains(choosenIndex){replaceCards(); return}
+      else {replaceCards()}
+    case .isNotMatched:
       // remove matched status
       selectedCardIndices.forEach{cards[$0].cardStatus = .none}
       // deselect those cardds
       selectedCardIndices = []
-      setFound = .none
+    case .none:
+      break
     }
     
     let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
@@ -61,17 +63,15 @@ struct SetGame<CardStyle:SetCardStyle>{
     if selectedCardIndices.count == 3 {
       if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement{
         selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched}
-        setFound = true
       }
       else{
         selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
-        setFound = false
       }
     }
   }
   
   mutating func dealNewCards(){
-    if setFound == true{
+    if setStatus == .isMatched{
       replaceCards()
     }
     else{
