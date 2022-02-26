@@ -18,7 +18,7 @@ struct ContentView: View {
           .onTapGesture { game.choose(card) }
       }
       .padding(.horizontal)
-      if game.deckCount > 0 {
+      if game.deckCount > 1 {
         Button{game.dealNewCards()}
         label:{Text("Deal 3 More Cards")}
           .buttonStyle(.borderedProminent)

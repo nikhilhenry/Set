@@ -23,11 +23,10 @@ struct SetGame<CardStyle:SetCardStyle>{
   var deckCount:Int{deck.filter{!$0.isDealt}.count}
   
   init(createUniqueCardStyles:()->[CardStyle]){
-    //  create cards for deck
-    createUniqueCardStyles().enumerated()
-      .forEach{deck.append(Card(id:$0,cardStyle:$1))}
-//    deck.shuffle()
-    //  deal 12 cards from deck
+    // create cards for deck
+    createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
+    deck.shuffle()
+    // deal 12 cards from deck
     deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
   }
   
@@ -38,13 +37,13 @@ struct SetGame<CardStyle:SetCardStyle>{
     switch setStatus {
     case .isMatched:
       let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
-      //    do not select a card if choosen card is matched ie already selected
+      // do not select a card if choosen card is matched ie already selected
       if selectedCardIndices.contains(choosenIndex){replaceCards(); return}
       else {replaceCards()}
     case .isNotMatched:
       // remove matched status
       selectedCardIndices.forEach{cards[$0].cardStatus = .none}
-      // deselect those cardds
+      // deselect those cards
       selectedCardIndices = []
     case .none:
       break
@@ -76,9 +75,10 @@ struct SetGame<CardStyle:SetCardStyle>{
     }
     else{
       // deal 3 new cards to existing cards set
-      deck.filter{!$0.isDealt}[...2].forEach{card in
-        deck[card.id].isDealt = true;
+      deck.filter{!$0.isDealt}[...3].forEach{card in
         cards.append(card)
+        guard let index = deck.firstIndex(where:{$0.id == card.id}) else{ return }
+        deck[index].isDealt = true;
       }
     }
   }
@@ -88,7 +88,8 @@ struct SetGame<CardStyle:SetCardStyle>{
       selectedCardIndices.forEach{ index in
         let card = deck.filter{!$0.isDealt}[0]
         // deal that card
-        deck[card.id].isDealt = true
+        guard let index = deck.firstIndex(where:{$0.id == card.id}) else{ return }
+        deck[index].isDealt = true
         cards[index] = card
       }
     }
