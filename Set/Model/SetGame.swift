@@ -76,20 +76,21 @@ struct SetGame<CardStyle:SetCardStyle>{
     else{
       // deal 3 new cards to existing cards set
       deck.filter{!$0.isDealt}[...3].forEach{card in
+        // deal that card
+        dealCard(card.id)
         cards.append(card)
-        guard let index = deck.firstIndex(where:{$0.id == card.id}) else{ return }
-        deck[index].isDealt = true;
       }
     }
   }
   
+  // Onlt run if three cards are present
   mutating private func replaceCards(){
+    if selectedCardIndices.count < 3 {return}
     if (deck.filter{!$0.isDealt}.count > 0){
       selectedCardIndices.forEach{ index in
         let card = deck.filter{!$0.isDealt}[0]
         // deal that card
-        guard let index = deck.firstIndex(where:{$0.id == card.id}) else{ return }
-        deck[index].isDealt = true
+        dealCard(card.id)
         cards[index] = card
       }
     }
@@ -101,6 +102,11 @@ struct SetGame<CardStyle:SetCardStyle>{
         cards.remove(at: cardIndex)
       }
     }
+  }
+  
+  private mutating func dealCard(_ id:Int){
+    guard let index = deck.firstIndex(where:{$0.id == id}) else{ return }
+    deck[index].isDealt = true
   }
   
   enum cardStatusOptions{
