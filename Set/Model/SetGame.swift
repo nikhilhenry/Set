@@ -59,8 +59,11 @@ struct SetGame<CardStyle:SetCardStyle>{
     selectedCardIndices.append(choosenIndex)
     
     if selectedCardIndices.count == 3 {
-      setFound = selectedCardIndices.map{cards[$0].cardStyle}.satisfiesSetRequirement
-      setFound! ? selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched} : selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+      if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement{
+        selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched}
+      }else{
+        selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+      }
     }
   }
   
@@ -69,14 +72,14 @@ struct SetGame<CardStyle:SetCardStyle>{
       replaceCards()
     }
     else{
-    // deal 3 new cards to existing cards set
+      // deal 3 new cards to existing cards set
       deck.filter{!$0.isDealt}[...2].forEach{card in
         deck[card.id].isDealt = true;
         cards.append(card)
       }
     }
   }
-
+  
   mutating private func replaceCards(){
     if (deck.filter{!$0.isDealt}.count > 0){
       selectedCardIndices.forEach{ index in
