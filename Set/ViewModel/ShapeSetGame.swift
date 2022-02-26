@@ -32,7 +32,7 @@ class ShapeSetGame:ObservableObject{
     model = SetGame<CardStyle>(createUniqueCardStyles: ShapeSetGame.generateUniqueCardStlyes)
   }
   
-//  MARK: - Card Styles
+  //  MARK: - Card Styles
   
   struct CardStyle:SetCardStyle{
     var contentNumber: numberOptions
@@ -68,7 +68,7 @@ class ShapeSetGame:ObservableObject{
     return cardStlyes
   }
   
-// MARK: - Card Style options
+  // MARK: - Card Style options
   
   enum numberOptions:Int,CaseIterable {
     case one = 1
