@@ -12,7 +12,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   var deckCount:Int{deck.filter{!$0.isDealt}.count}
   
   private (set) var cards:[Card] = []
-  private var deck:[Card] = []
+  private (set) var deck:[Card] = []
   private var selectedCardIndices:[Int]{
     get { cards.indices.filter{cards[$0].isSelected} }
     set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
@@ -25,7 +25,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   init(createUniqueCardStyles:()->[CardStyle]){
     // create cards for deck
     createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    deck.shuffle()
+    //    deck.shuffle()
     // deal 12 cards from deck
     deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
   }
@@ -85,22 +85,15 @@ struct SetGame<CardStyle:SetCardStyle>{
   
   // Only run if three cards are present
   mutating private func replaceCards(){
-    if selectedCardIndices.count < 3 {return}
-    if (deck.filter{!$0.isDealt}.count > 0){
-      selectedCardIndices.forEach{ index in
-        let card = deck.filter{!$0.isDealt}[0]
-        // deal that card
-        dealCard(card.id)
-        cards[index] = card
-      }
+    //  discard those cards
+    selectedCardIndices.forEach{index in
+      deck[index].isDiscarded = true
     }
-    else{
-      // remove those three cards
-      selectedCardIndices.map{cards[$0]}
-      .forEach{ card in
-        guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
-        cards.remove(at: cardIndex)
-      }
+    // remove those three cards from playing
+    selectedCardIndices.map{cards[$0]}
+    .forEach{ card in
+      guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
+      cards.remove(at: cardIndex)
     }
   }
   
@@ -121,6 +114,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     var isSelected = false
     var cardStatus:cardStatusOptions = .none
     let cardStyle:CardStyle
+    var isDiscarded = false
   }
 }
 
