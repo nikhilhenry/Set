@@ -8,6 +8,9 @@
 import Foundation
 
 struct SetGame<CardStyle:SetCardStyle>{
+  
+  var deckCount:Int{deck.filter{!$0.isDealt}.count}
+  
   private (set) var cards:[Card] = []
   private var deck:[Card] = []
   private var selectedCardIndices:[Int]{
@@ -15,12 +18,9 @@ struct SetGame<CardStyle:SetCardStyle>{
     set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
   }
   private var setStatus:cardStatusOptions{
-    if selectedCardIndices.count > 0 {
-      return cards[selectedCardIndices[0]].cardStatus
-    }
+    if selectedCardIndices.count > 0 { return cards[selectedCardIndices[0]].cardStatus}
     else{ return .none}
   }
-  var deckCount:Int{deck.filter{!$0.isDealt}.count}
   
   init(createUniqueCardStyles:()->[CardStyle]){
     // create cards for deck
