@@ -12,7 +12,9 @@ struct CardView:View{
   
   var body: some View{
     if !card.isDealt{
-      RoundedRectangle(cornerRadius: 10).fill(.cyan)
+      RoundedRectangle(cornerRadius: 10).fill(
+        LinearGradient(colors: [.pink,.cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
+      )
     }
     else{
       let cardStyle = card.cardStyle
