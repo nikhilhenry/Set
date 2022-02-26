@@ -13,6 +13,7 @@ struct CardView:View{
   var body: some View{
     let cardStyle = card.cardStyle
     ZStack{
+      Rectangle().fill(.white)
       let shapeCount = cardStyle.contentNumber.rawValue
       createCardBorder(card: card)
       VStack{
