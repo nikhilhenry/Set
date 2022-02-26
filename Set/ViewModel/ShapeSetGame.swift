@@ -17,6 +17,10 @@ class ShapeSetGame:ObservableObject{
     return model.cards
   }
   
+  var descardedCards: [Card]{
+    model.deck.filter{$0.isDiscarded}
+  }
+  
   var deckCount:Int{
     return model.deckCount
   }
