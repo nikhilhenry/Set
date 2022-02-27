@@ -25,7 +25,7 @@ struct SetGame<CardStyle:SetCardStyle>{
   init(createUniqueCardStyles:()->[CardStyle]){
     // create cards for deck
     createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    //    deck.shuffle()
+    // deck.shuffle()
     // deal 12 cards from deck
     deck.first(12).indices.forEach {deck[$0].isDealt = true; cards.append(deck[$0])}
   }
@@ -59,6 +59,7 @@ struct SetGame<CardStyle:SetCardStyle>{
     
     selectedCardIndices.append(choosenIndex)
     
+    // Check if selected cards make a set
     if selectedCardIndices.count == 3 {
       if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement{
         selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched}
@@ -103,6 +104,8 @@ struct SetGame<CardStyle:SetCardStyle>{
     deck[index].isDealt = true
   }
   
+  // MARK: Card Struct
+  
   enum cardStatusOptions{
     case isMatched
     case isNotMatched
@@ -118,6 +121,8 @@ struct SetGame<CardStyle:SetCardStyle>{
     var isDiscarded = false
   }
 }
+
+// MARK: Extensions and Protocols
 
 extension Array{
   func first(_ tillIndex:Int) -> [Element]{
