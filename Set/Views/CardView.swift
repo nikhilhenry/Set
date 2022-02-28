@@ -13,7 +13,6 @@ struct CardView: View {
     return card.cardStatus == .isMatched
   }
   var body: some View {
-    Group{
       if !card.isDealt {
         RoundedRectangle(cornerRadius: 10).fill(
           LinearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -30,12 +29,11 @@ struct CardView: View {
             }
           }
           .padding()
+          .offset(x: 0, y: isMatched ? -5:0)
+          .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMatched)
           .foregroundColor(cardStyle.getContentColor())
         }
       }
-    }
-    .offset(x: 0, y: isMatched ? -5:0)
-    .animation(.easeInOut(duration: 1), value: isMatched)
   }
 }
 
