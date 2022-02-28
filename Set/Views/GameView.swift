@@ -24,7 +24,7 @@ struct GameView: View {
             .padding(6)
             .onTapGesture {
               if game.isMatchPresent{
-              withAnimation(.easeIn(duration: 0.5)){game.choose(card)}
+                withAnimation(.easeIn(duration: 0.5)){game.choose(card)}
               }
               else{
                 game.choose(card)
@@ -62,9 +62,9 @@ struct GameView: View {
   var deckPile:some View{
     ZStack {
       ForEach(game.deck) {card in
-          CardView(card: card)
-            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-            .transition(.slide)
+        CardView(card: card)
+          .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+          .transition(.slide)
       }
     } .frame(width: 60, height: 90, alignment: .center)
   }
