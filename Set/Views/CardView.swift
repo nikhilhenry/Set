@@ -10,7 +10,10 @@ import SwiftUI
 struct CardView: View {
   let card: ShapeSetGame.Card
   var isMatched: Bool{
-    return card.cardStatus == .isMatched
+    return card.cardStatus == .isMatched && card.isSelected
+  }
+  var isMismatched: Bool{
+    return card.cardStatus == .isNotMatched && card.isSelected
   }
   var body: some View {
       if !card.isDealt {
@@ -31,6 +34,8 @@ struct CardView: View {
           .padding()
           .offset(x: 0, y: isMatched ? -5:0)
           .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMatched)
+          .offset(x: isMismatched ? 5:0, y: isMismatched ? 3:0)
+          .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMismatched)
           .foregroundColor(cardStyle.getContentColor())
         }
       }
