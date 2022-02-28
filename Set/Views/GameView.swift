@@ -10,11 +10,14 @@ import SwiftUI
 struct GameView: View {
   @ObservedObject var game: ShapeSetGame
   
+  @Namespace private var discardingNamespace
+  
   var body: some View {
     VStack {
       Text("Set!").font(.largeTitle).foregroundColor(.black)
       AspectVGrid(items: game.cards, aspectRatio: 2 / 3) { card in
         CardView(card: card).padding(6)
+          .matchedGeometryEffect(id: card.id, in: discardingNamespace)
           .onTapGesture { game.choose(card) }
           .onDisappear { discard(card) }
       }
@@ -41,7 +44,9 @@ struct GameView: View {
     ZStack {
       ForEach(game.descardedCards.reversed()) {card in
         if isDiscarded(card){
-          CardView(card: card).aspectRatio(2 / 3, contentMode: .fit)
+          CardView(card: card)
+            .aspectRatio(2 / 3, contentMode: .fit)
+            .matchedGeometryEffect(id: card.id, in: discardingNamespace)
         }
         else{
           Color.clear
