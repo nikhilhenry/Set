@@ -16,10 +16,13 @@ struct GameView: View {
     VStack {
       Text("Set!").font(.largeTitle).foregroundColor(.black)
       AspectVGrid(items: game.cards, aspectRatio: 2 / 3) { card in
-        CardView(card: card).padding(6)
+        CardView(card: card)
           .matchedGeometryEffect(id: card.id, in: discardingNamespace)
+          .padding(6)
           .onTapGesture { game.choose(card) }
-          .onDisappear { discard(card) }
+          .onDisappear {
+            withAnimation { discard(card) }
+          }
       }
       .padding(.horizontal)
       cardPiles
@@ -45,7 +48,6 @@ struct GameView: View {
       ForEach(game.descardedCards.reversed()) {card in
         if isDiscarded(card){
           CardView(card: card)
-            .aspectRatio(2 / 3, contentMode: .fit)
             .matchedGeometryEffect(id: card.id, in: discardingNamespace)
         }
         else{
