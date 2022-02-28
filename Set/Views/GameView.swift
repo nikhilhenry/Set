@@ -23,7 +23,8 @@ struct GameView: View {
             .padding(6)
             .onTapGesture { game.choose(card) }
             .onDisappear {
-              withAnimation { discard(card) }
+              withAnimation(discardAnimation(for: card))
+                { discard(card) }
             }
         }
       }
@@ -43,6 +44,15 @@ struct GameView: View {
   // returns if the given card has not yet been discarded
   private func isDiscarded(_ card: ShapeSetGame.Card) -> Bool {
     discarded.contains(card.id)
+  }
+  
+  // delay discarding of cards not all at once
+  private func discardAnimation(for card: ShapeSetGame.Card) -> Animation {
+    var delay = 0.0
+    if let index = game.descardedCards.firstIndex(where: { $0.id == card.id }) {
+      delay = Double(index) * (CardConstants.totalDealDuration / Double(game.descardedCards.count))
+    }
+    return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
   }
   
   // the view for discarded cards
@@ -87,6 +97,15 @@ struct GameView: View {
           .frame(width: 60, height: 90, alignment: .center)
       }
     }
+  }
+  
+  private struct CardConstants {
+    static let color = Color.red
+    static let aspectRatio: CGFloat = 2 / 3
+    static let dealDuration: Double = 0.5
+    static let totalDealDuration: Double = 2
+    static let undealtHeight: CGFloat = 90
+    static let undealtWidth = undealtHeight * aspectRatio
   }
 }
 
