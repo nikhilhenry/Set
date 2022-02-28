@@ -9,27 +9,33 @@ import SwiftUI
 
 struct CardView: View {
   let card: ShapeSetGame.Card
-
+  var isMatched: Bool{
+    return card.cardStatus == .isMatched
+  }
   var body: some View {
-    if !card.isDealt {
-      RoundedRectangle(cornerRadius: 10).fill(
-        LinearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
-      )
-    } else {
-      let cardStyle = card.cardStyle
-      ZStack {
-        Rectangle().fill(.white)
-        let shapeCount = cardStyle.contentNumber.rawValue
-        createCardBorder(card: card)
-        VStack {
-          ForEach(0..<shapeCount, id: \.self) { _ in
-            createCardContent(cardStyle: card.cardStyle).aspectRatio(2 / 1, contentMode: .fit)
+    Group{
+      if !card.isDealt {
+        RoundedRectangle(cornerRadius: 10).fill(
+          LinearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
+      } else {
+        let cardStyle = card.cardStyle
+        ZStack {
+          Rectangle().fill(.white)
+          let shapeCount = cardStyle.contentNumber.rawValue
+          createCardBorder(card: card)
+          VStack {
+            ForEach(0..<shapeCount, id: \.self) { _ in
+              createCardContent(cardStyle: card.cardStyle).aspectRatio(2 / 1, contentMode: .fit)
+            }
           }
+          .padding()
+          .foregroundColor(cardStyle.getContentColor())
         }
-        .padding()
-        .foregroundColor(cardStyle.getContentColor())
       }
     }
+    .offset(x: 0, y: isMatched ? -5:0)
+    .animation(.easeInOut(duration: 1), value: isMatched)
   }
 }
 
@@ -67,7 +73,7 @@ extension Shape {
     switch shadeOption {
     case .open:
       self.stroke()
-//  Extra-credit 2
+    //  Extra-credit 2
     case .striped:
       ZStack {
         GeometryReader {geometry in
