@@ -16,15 +16,12 @@ struct GameView: View {
     VStack {
       Text("Set!").font(.largeTitle).foregroundColor(.black)
       AspectVGrid(items: game.cards, aspectRatio: 2 / 3) { card in
-        if isDiscarded(card) { Color.clear}
-        else{
+        if !isDiscarded(card){
           CardView(card: card)
             .matchedGeometryEffect(id: card.id, in: discardingNamespace)
             .padding(6)
-            .onTapGesture { game.choose(card) }
-            .onDisappear {
-              withAnimation(discardAnimation(for: card))
-                { discard(card) }
+            .onTapGesture {
+              withAnimation(discardAnimation(for: card)){game.choose(card)}
             }
         }
       }
@@ -33,17 +30,9 @@ struct GameView: View {
     }
   }
   
-  //  private state used to track discarded cards
-  @State private var discarded = Set<Int>()
-  
-  //  marks the given card as discarded
-  private func discard(_ card: ShapeSetGame.Card){
-    discarded.insert(card.id)
-  }
-  
   // returns if the given card has not yet been discarded
   private func isDiscarded(_ card: ShapeSetGame.Card) -> Bool {
-    discarded.contains(card.id)
+    game.descardedCards.contains {$0.id == card.id}
   }
   
   // delay discarding of cards not all at once

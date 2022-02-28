@@ -87,12 +87,7 @@ struct SetGame<CardStyle: SetCardStyle> {
     selectedCardIndices.forEach {index in
       deck[index].isDiscarded = true
     }
-    // remove those three cards from playing
-    selectedCardIndices.map {cards[$0]}
-    .forEach { card in
-      guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
-      cards.remove(at: cardIndex)
-    }
+    selectedCardIndices = []
   }
 
   private mutating func dealCard(_ id: Int) {
