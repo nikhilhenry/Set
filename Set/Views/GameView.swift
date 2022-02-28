@@ -16,6 +16,7 @@ struct GameView: View {
       AspectVGrid(items: game.cards, aspectRatio: 2 / 3) { card in
         CardView(card: card).padding(6)
           .onTapGesture { game.choose(card) }
+          .onDisappear { discard(card) }
       }
       .padding(.horizontal)
       cardPiles
