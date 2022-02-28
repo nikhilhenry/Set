@@ -11,6 +11,7 @@ struct GameView: View {
   @ObservedObject var game: ShapeSetGame
   
   @Namespace private var discardingNamespace
+  @Namespace private var dealingNamespace
   
   var body: some View {
     VStack {
@@ -19,6 +20,7 @@ struct GameView: View {
         if !isDiscarded(card){
           CardView(card: card)
             .matchedGeometryEffect(id: card.id, in: discardingNamespace)
+            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
             .padding(6)
             .onTapGesture {
               if game.isMatchPresent{
@@ -56,9 +58,20 @@ struct GameView: View {
     } .frame(width: 60, height: 90, alignment: .center)
   }
   
+  // the view for deck of cards
+  var deckPile:some View{
+    ZStack {
+      ForEach(game.deck) {card in
+          CardView(card: card)
+            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+            .transition(.slide)
+      }
+    } .frame(width: 60, height: 90, alignment: .center)
+  }
+  
   var cardPiles: some View {
     HStack {
-      cardPile(for: game.deck)
+      deckPile
         .onTapGesture {game.dealNewCards()}
       Spacer()
       discardPile
@@ -73,14 +86,6 @@ struct GameView: View {
       }
       Button {game.startNewGame()}label: {Text("New Game")}
       .buttonStyle(.bordered)
-    }
-  }
-  private func cardPile(for items: [ShapeSetGame.Card]) -> some View {
-    ZStack {
-      ForEach(items.reversed()) {card in
-        CardView(card: card).aspectRatio(2 / 3, contentMode: .fit)
-          .frame(width: 60, height: 90, alignment: .center)
-      }
     }
   }
   
