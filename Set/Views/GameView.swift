@@ -72,7 +72,9 @@ struct GameView: View {
   var cardPiles: some View {
     HStack {
       deckPile
-        .onTapGesture {game.dealNewCards()}
+        .onTapGesture {
+          withAnimation{game.dealNewCards()}
+        }
       Spacer()
       discardPile
     }
