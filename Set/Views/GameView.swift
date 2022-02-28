@@ -40,15 +40,6 @@ struct GameView: View {
     game.descardedCards.contains {$0.id == card.id}
   }
   
-  // delay discarding of cards not all at once
-  private func discardAnimation(for card: ShapeSetGame.Card) -> Animation {
-    var delay = 0.0
-    if let index = game.descardedCards.firstIndex(where: { $0.id == card.id }) {
-      delay = Double(index) * (CardConstants.totalDealDuration / 3)
-    }
-    return Animation.easeInOut(duration: CardConstants.dealDuration).delay(0)
-  }
-  
   // the view for discarded cards
   var discardPile:some View{
     ZStack {
