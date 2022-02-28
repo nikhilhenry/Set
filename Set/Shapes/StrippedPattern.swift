@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct StripedPattern: Shape {
-  
+
   var stripeWidth: Int
-  
+
   func path(in rect: CGRect) -> Path {
     let numberOfStripes = Int(rect.width) / stripeWidth
     var path = Path()
