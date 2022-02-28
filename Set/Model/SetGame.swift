@@ -24,7 +24,7 @@ struct SetGame<CardStyle: SetCardStyle> {
   init(createUniqueCardStyles:() -> [CardStyle]) {
     // create cards for deck
     createUniqueCardStyles().enumerated().forEach {deck.append(Card(id: $0, cardStyle: $1))}
-    // deck.shuffle()
+     deck.shuffle()
   }
 
   mutating func choose(_ card: Card) {
