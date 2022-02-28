@@ -21,7 +21,12 @@ struct GameView: View {
             .matchedGeometryEffect(id: card.id, in: discardingNamespace)
             .padding(6)
             .onTapGesture {
-              withAnimation(discardAnimation(for: card)){game.choose(card)}
+              if game.isMatchPresent{
+              withAnimation(.easeIn(duration: 0.5)){game.choose(card)}
+              }
+              else{
+                game.choose(card)
+              }
             }
         }
       }
@@ -39,9 +44,9 @@ struct GameView: View {
   private func discardAnimation(for card: ShapeSetGame.Card) -> Animation {
     var delay = 0.0
     if let index = game.descardedCards.firstIndex(where: { $0.id == card.id }) {
-      delay = Double(index) * (CardConstants.totalDealDuration / Double(game.descardedCards.count))
+      delay = Double(index) * (CardConstants.totalDealDuration / 3)
     }
-    return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
+    return Animation.easeInOut(duration: CardConstants.dealDuration).delay(0)
   }
   
   // the view for discarded cards
@@ -92,7 +97,7 @@ struct GameView: View {
     static let color = Color.red
     static let aspectRatio: CGFloat = 2 / 3
     static let dealDuration: Double = 0.5
-    static let totalDealDuration: Double = 2
+    static let totalDealDuration: Double = 0.01
     static let undealtHeight: CGFloat = 90
     static let undealtWidth = undealtHeight * aspectRatio
   }

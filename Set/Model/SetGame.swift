@@ -10,15 +10,15 @@ import Foundation
 struct SetGame<CardStyle: SetCardStyle> {
 
   var deckCount: Int {deck.filter {!$0.isDealt}.count}
+  var setStatus: CardStatusOptions {
+    if selectedCardIndices.count > 0 { return cards[selectedCardIndices[0]].cardStatus} else { return .none}
+  }
 
   private (set) var cards: [Card] = []
   private (set) var deck: [Card] = []
   private var selectedCardIndices: [Int] {
     get { cards.indices.filter {cards[$0].isSelected} }
     set { cards.indices.forEach {cards[$0].isSelected = newValue.contains($0)} }
-  }
-  private var setStatus: CardStatusOptions {
-    if selectedCardIndices.count > 0 { return cards[selectedCardIndices[0]].cardStatus} else { return .none}
   }
 
   init(createUniqueCardStyles:() -> [CardStyle]) {

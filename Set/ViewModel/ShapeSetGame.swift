@@ -16,6 +16,10 @@ class ShapeSetGame: ObservableObject {
   var cards: [Card] {
     return model.cards
   }
+  
+  var isMatchPresent: Bool{
+    return model.setStatus == .isMatched
+  }
 
   var deck: [Card] {
     return model.deck.filter {!$0.isDealt}
