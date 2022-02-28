@@ -25,8 +25,6 @@ struct SetGame<CardStyle: SetCardStyle> {
     // create cards for deck
     createUniqueCardStyles().enumerated().forEach {deck.append(Card(id: $0, cardStyle: $1))}
     // deck.shuffle()
-    // deal 12 cards from deck
-    deck.first(12).indices.forEach {deck[$0].isDealt = true; cards.append(deck[$0])}
   }
 
   mutating func choose(_ card: Card) {
@@ -68,6 +66,13 @@ struct SetGame<CardStyle: SetCardStyle> {
   }
 
   mutating func dealNewCards() {
+    
+//  if no cards have been dealt
+    if deck.filter({$0.isDealt}).count == 0{
+      // deal 12 cards from deck
+      deck.first(12).indices.forEach {deck[$0].isDealt = true; cards.append(deck[$0])}
+    }
+    
     if setStatus == .isMatched {
       replaceCards()
     } else {
