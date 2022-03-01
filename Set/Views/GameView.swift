@@ -49,7 +49,8 @@ struct GameView: View {
         if isDiscarded(card){
           CardView(card: card)
             .matchedGeometryEffect(id: card.id, in: discardingNamespace)
-            .transition(.slide)
+            // Extra-credit 1
+            .rotationEffect(Angle(degrees: Double.random(in: -10...10)))
         }
         else{
           Color.clear
@@ -64,7 +65,8 @@ struct GameView: View {
       ForEach(game.deck) {card in
         CardView(card: card)
           .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-          .transition(.slide)
+          // Extra-credit 1
+          .rotationEffect(Angle(degrees: Double.random(in: -10...10)))
       }
     } .frame(width: 60, height: 90, alignment: .center)
   }
