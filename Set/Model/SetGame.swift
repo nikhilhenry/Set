@@ -85,15 +85,25 @@ struct SetGame<CardStyle: SetCardStyle> {
       }
     }
   }
-
+  
   // Only run if three cards are present
-  mutating private func replaceCards() {
+  mutating private func replaceCards(){
+    if selectedCardIndices.count < 3 {return}
     //  discard those cards
     selectedCardIndices.forEach {index in
       deck[index].isDiscarded = true
     }
+    if (deck.filter{!$0.isDealt}.count > 0){
+      selectedCardIndices.forEach{ index in
+        let card = deck.filter{!$0.isDealt}[0]
+        // deal that card
+        dealCard(card.id)
+        cards[index] = card
+        cards[index].isDealt = true
+      }
+    }
     selectedCardIndices = []
-  }
+    }
 
   private mutating func dealCard(_ id: Int) {
     guard let index = deck.firstIndex(where: {$0.id == id}) else { return }
