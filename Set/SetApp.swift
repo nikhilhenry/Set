@@ -12,7 +12,7 @@ struct SetApp: App {
     var body: some Scene {
         WindowGroup {
           let game = ShapeSetGame()
-          GameView(game:game)
+          GameView(game: game)
         }
     }
 }

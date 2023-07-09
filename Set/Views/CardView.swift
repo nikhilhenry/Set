@@ -7,28 +7,44 @@
 
 import SwiftUI
 
-struct CardView:View{
-  let card:ShapeSetGame.Card
-  
-  var body: some View{
-    let cardStyle = card.cardStyle
-    ZStack{
-      let shapeCount = cardStyle.contentNumber.rawValue
-      createCardBorder(card: card)
-      VStack{
-        ForEach(0..<shapeCount,id:\.self){ index in
-          createCardContent(cardStyle: card.cardStyle).aspectRatio(2/1, contentMode: .fit)
+struct CardView: View {
+  let card: ShapeSetGame.Card
+  var isMatched: Bool{
+    return card.cardStatus == .isMatched && card.isSelected
+  }
+  var isMismatched: Bool{
+    return card.cardStatus == .isNotMatched && card.isSelected
+  }
+  var body: some View {
+      if !card.isDealt {
+        RoundedRectangle(cornerRadius: 10).fill(
+          LinearGradient(colors: [.pink, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
+      } else {
+        let cardStyle = card.cardStyle
+        ZStack {
+          Rectangle().fill(.white)
+          let shapeCount = cardStyle.contentNumber.rawValue
+          createCardBorder(card: card)
+          VStack {
+            ForEach(0..<shapeCount, id: \.self) { _ in
+              createCardContent(cardStyle: card.cardStyle).aspectRatio(2 / 1, contentMode: .fit)
+            }
+          }
+          .padding()
+          .offset(x: 0, y: isMatched ? -5 : 0)
+          .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMatched)
+          .offset(x: isMismatched ? 5 : 0, y: isMismatched ? 3 : 0)
+          .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMismatched)
+          .foregroundColor(cardStyle.getContentColor())
         }
       }
-      .padding()
-      .foregroundColor(cardStyle.getContentColor())
-    }
   }
 }
 
-@ViewBuilder private func createCardBorder(card:ShapeSetGame.Card) -> some View{
-  let shape = RoundedRectangle(cornerRadius: 10).stroke(lineWidth:3)
-  switch card.cardStatus{
+@ViewBuilder private func createCardBorder(card: ShapeSetGame.Card) -> some View {
+  let shape = RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3)
+  switch card.cardStatus {
   case .isMatched:
     shape.fill(.green)
   case .isNotMatched:
@@ -36,12 +52,12 @@ struct CardView:View{
   case .none:
     shape.fill(.black)
   }
-  if card.isSelected && card.cardStatus == .none{
+  if card.isSelected && card.cardStatus == .none {
     shape.fill(.blue)
   }
 }
 
-@ViewBuilder private func createCardContent(cardStyle:ShapeSetGame.CardStyle)-> some View{
+@ViewBuilder private func createCardContent(cardStyle: ShapeSetGame.CardStyle)-> some View {
   let content = cardStyle.cardContent
   let shading = cardStyle.cardShading
   switch content {
@@ -49,21 +65,21 @@ struct CardView:View{
     //  Extra-credit-1
     Squiggle().shade(with: shading)
   case .oval:
-    Circle().shade(with:shading)
+    Circle().shade(with: shading)
   case .diamond:
     Diamond().shade(with: shading)
   }
 }
 
-extension Shape{
-  @ViewBuilder func shade(with shadeOption:ShapeSetGame.shadingOptions) -> some View{
-    switch shadeOption{
+extension Shape {
+  @ViewBuilder func shade(with shadeOption: ShapeSetGame.ShadingOptions) -> some View {
+    switch shadeOption {
     case .open:
       self.stroke()
-//  Extra-credit 2
+    //  Extra-credit 2
     case .striped:
-      ZStack{
-        GeometryReader{geometry in
+      ZStack {
+        GeometryReader {geometry in
           StripedPattern(stripeWidth: max(1, Int(geometry.size.width) / 20))
             .mask(self)
         }
@@ -77,8 +93,9 @@ extension Shape{
 
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
-    let cardStyle = ShapeSetGame.CardStyle(contentNumber:.one, cardContent: .squiggle, cardShading: .striped, cardColor: .purple)
-    let card = ShapeSetGame.Card(id: 1, isSelected:true, cardStyle: cardStyle)
-    CardView(card: card).aspectRatio(2/3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
+    let cardStyle = ShapeSetGame.CardStyle(
+      contentNumber: .one, cardContent: .squiggle, cardShading: .striped, cardColor: .purple)
+    let card = ShapeSetGame.Card(id: 1, isSelected: true, cardStyle: cardStyle)
+    CardView(card: card).aspectRatio(2 / 3, contentMode: .fit).frame(width: 200, height: 300, alignment: .center)
   }
 }

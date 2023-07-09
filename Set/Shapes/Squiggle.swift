@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct Squiggle:Shape{
-  
+struct Squiggle: Shape {
+
 //  Extra-credit-1
 
   func path(in rect: CGRect) -> Path {
     var path = Path()
-    
+
     path.move(to: CGPoint(x: 104.0, y: 15.0))
     path.addCurve(to: CGPoint(x: 63.0, y: 54.0),
                   control1: CGPoint(x: 112.4, y: 36.9),
@@ -33,15 +33,14 @@ struct Squiggle:Shape{
     path.addCurve(to: CGPoint(x: 104.0, y: 15.0),
                   control1: CGPoint(x: 95.3, y: 10.0),
                   control2: CGPoint(x: 100.9, y: 6.9))
-    
+
     let pathRect = path.boundingRect
     path = path.offsetBy(dx: rect.minX - pathRect.minX, dy: rect.minY - pathRect.minY)
-    
+
     let scale: CGFloat = rect.width / pathRect.width
     let transform = CGAffineTransform(scaleX: scale, y: scale)
     path = path.applying(transform)
-    
-    
+
     return path
       .offsetBy(dx: rect.minX - path.boundingRect.minX, dy: rect.midY - path.boundingRect.midY)
   }

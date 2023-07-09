@@ -7,77 +7,80 @@
 
 import Foundation
 
-struct SetGame<CardStyle:SetCardStyle>{
-  
-  var deckCount:Int{deck.filter{!$0.isDealt}.count}
-  
-  private (set) var cards:[Card] = []
-  private var deck:[Card] = []
-  private var selectedCardIndices:[Int]{
-    get { cards.indices.filter{cards[$0].isSelected} }
-    set { cards.indices.forEach{cards[$0].isSelected = newValue.contains($0)} }
+struct SetGame<CardStyle: SetCardStyle> {
+
+  var deckCount: Int {deck.filter {!$0.isDealt}.count}
+  var setStatus: CardStatusOptions {
+    if selectedCardIndices.count > 0 { return cards[selectedCardIndices[0]].cardStatus} else { return .none}
   }
-  private var setStatus:cardStatusOptions{
-    if selectedCardIndices.count > 0 { return cards[selectedCardIndices[0]].cardStatus}
-    else{ return .none}
+
+  private (set) var cards: [Card] = []
+  private (set) var deck: [Card] = []
+  private var selectedCardIndices: [Int] {
+    get { cards.indices.filter {cards[$0].isSelected} }
+    set { cards.indices.forEach {cards[$0].isSelected = newValue.contains($0)} }
   }
-  
-  init(createUniqueCardStyles:()->[CardStyle]){
+
+  init(createUniqueCardStyles: () -> [CardStyle]) {
     // create cards for deck
-    createUniqueCardStyles().enumerated().forEach{deck.append(Card(id:$0,cardStyle:$1))}
-    deck.shuffle()
-    // deal 12 cards from deck
-    deck.first(12).indices.forEach { cards.append(deck[$0]); deck[$0].isDealt = true }
+    createUniqueCardStyles().enumerated().forEach {deck.append(Card(id: $0, cardStyle: $1))}
+     deck.shuffle()
   }
-  
-  mutating func choose(_ card:Card){
-    
+
+  mutating func choose(_ card: Card) {
+
     if selectedCardIndices.count > 3 {return}
-    
+
     switch setStatus {
     case .isMatched:
       let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
       // do not select a card if choosen card is matched ie already selected
-      if selectedCardIndices.contains(choosenIndex){replaceCards(); return}
-      else {replaceCards()}
+      if selectedCardIndices.contains(choosenIndex) {replaceCards(); return} else {replaceCards()}
     case .isNotMatched:
       // remove matched status
-      selectedCardIndices.forEach{cards[$0].cardStatus = .none}
+      selectedCardIndices.forEach {cards[$0].cardStatus = .none}
       // deselect those cards
       selectedCardIndices = []
     case .none:
       break
     }
-    
+
     let choosenIndex = cards.firstIndex(where: {$0.id == card.id})!
-    
+
     //  deselect the card if already chosen
-    if let selectedIndex = selectedCardIndices.firstIndex(of: choosenIndex){
+    if let selectedIndex = selectedCardIndices.firstIndex(of: choosenIndex) {
       selectedCardIndices.remove(at: selectedIndex)
       return
     }
-    
+
     selectedCardIndices.append(choosenIndex)
-    
+
+    // Check if selected cards make a set
     if selectedCardIndices.count == 3 {
-      if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement{
-        selectedCardIndices.forEach{cards[$0].cardStatus = .isMatched}
-      }
-      else{
-        selectedCardIndices.forEach{cards[$0].cardStatus = .isNotMatched}
+      if selectedCardIndices.map({cards[$0].cardStyle}).satisfiesSetRequirement {
+        selectedCardIndices.forEach {cards[$0].cardStatus = .isMatched}
+      } else {
+        selectedCardIndices.forEach {cards[$0].cardStatus = .isNotMatched}
       }
     }
   }
-  
-  mutating func dealNewCards(){
-    if setStatus == .isMatched{
-      replaceCards()
+
+  mutating func dealNewCards() {
+    
+//  if no cards have been dealt
+    if deck.filter({$0.isDealt}).count == 0{
+      // deal 12 cards from deck
+      deck.first(12).indices.forEach {deck[$0].isDealt = true; cards.append(deck[$0])}
     }
-    else{
+    
+    if setStatus == .isMatched {
+      replaceCards()
+    } else {
       // deal 3 new cards to existing cards set
-      deck.filter{!$0.isDealt}.first(3).forEach{card in
+      deck.filter {!$0.isDealt}.first(3).forEach {card in
         // deal that card
         dealCard(card.id)
+        var card = card; card.isDealt = true
         cards.append(card)
       }
     }
@@ -86,76 +89,78 @@ struct SetGame<CardStyle:SetCardStyle>{
   // Only run if three cards are present
   mutating private func replaceCards(){
     if selectedCardIndices.count < 3 {return}
+    //  discard those cards
+    selectedCardIndices.forEach {index in
+      deck[index].isDiscarded = true
+    }
     if (deck.filter{!$0.isDealt}.count > 0){
       selectedCardIndices.forEach{ index in
         let card = deck.filter{!$0.isDealt}[0]
         // deal that card
         dealCard(card.id)
         cards[index] = card
+        cards[index].isDealt = true
       }
     }
-    else{
-      // remove those three cards
-      selectedCardIndices.map{cards[$0]}
-      .forEach{ card in
-        guard let cardIndex = cards.firstIndex(where: {$0.id == card.id}) else {return}
-        cards.remove(at: cardIndex)
-      }
+    selectedCardIndices = []
     }
-  }
-  
-  private mutating func dealCard(_ id:Int){
-    guard let index = deck.firstIndex(where:{$0.id == id}) else{ return }
+//
+  private mutating func dealCard(_ id: Int) {
+    guard let index = deck.firstIndex(where: {$0.id == id}) else { return }
     deck[index].isDealt = true
   }
-  
-  enum cardStatusOptions{
+
+  // MARK: Card Struct
+
+  enum CardStatusOptions {
     case isMatched
     case isNotMatched
     case none
   }
-  
-  struct Card:Identifiable {
-    let id:Int
+
+  struct Card: Identifiable {
+    let id: Int
     var isDealt = false
     var isSelected = false
-    var cardStatus:cardStatusOptions = .none
-    let cardStyle:CardStyle
+    var cardStatus: CardStatusOptions = .none
+    let cardStyle: CardStyle
+    var isDiscarded = false
   }
 }
 
-extension Array{
-  func first(_ tillIndex:Int) -> [Element]{
+// MARK: Extensions and Protocols
+
+extension Array {
+  func first(_ tillIndex: Int) -> [Element] {
     let upto = tillIndex > self.count ? self.count : tillIndex
     return Array(self[0..<upto])
   }
 }
 
-extension Set{
-  var satisfySetRequirement:Bool{
+extension Set {
+  var satisfySetRequirement: Bool {
     return count == 1 || count == 3
   }
 }
 
-extension Array where Element:SetCardStyle{
-  var satisfiesSetRequirement:Bool{
+extension Array where Element: SetCardStyle {
+  var satisfiesSetRequirement: Bool {
     guard Set(self.map({$0.contentNumber})).satisfySetRequirement else { return false }
     guard Set(self.map({$0.cardContent})).satisfySetRequirement else { return false }
     guard Set(self.map({$0.cardColor})).satisfySetRequirement else { return false }
     guard Set(self.map({$0.cardShading})).satisfySetRequirement else { return false }
-    
+
     return true
   }
 }
 
-
-protocol SetCardStyle{
-  associatedtype ContentNumber:Hashable
-  associatedtype CardContent:Hashable
-  associatedtype CardShading:Hashable
-  associatedtype CardColor:Hashable
-  var contentNumber:ContentNumber { get }
-  var cardContent:CardContent { get }
-  var cardShading:CardShading { get }
-  var cardColor:CardColor {get}
+protocol SetCardStyle {
+  associatedtype ContentNumber: Hashable
+  associatedtype CardContent: Hashable
+  associatedtype CardShading: Hashable
+  associatedtype CardColor: Hashable
+  var contentNumber: ContentNumber { get }
+  var cardContent: CardContent { get }
+  var cardShading: CardShading { get }
+  var cardColor: CardColor {get}
 }
