@@ -32,9 +32,9 @@ struct CardView: View {
             }
           }
           .padding()
-          .offset(x: 0, y: isMatched ? -5:0)
+          .offset(x: 0, y: isMatched ? -5 : 0)
           .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMatched)
-          .offset(x: isMismatched ? 5:0, y: isMismatched ? 3:0)
+          .offset(x: isMismatched ? 5 : 0, y: isMismatched ? 3 : 0)
           .animation(.easeInOut(duration: 0.5).repeatForever(), value: isMismatched)
           .foregroundColor(cardStyle.getContentColor())
         }

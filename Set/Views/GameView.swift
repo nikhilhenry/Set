@@ -43,7 +43,7 @@ struct GameView: View {
   }
   
   // the view for discarded cards
-  var discardPile:some View{
+  var discardPile: some View{
     ZStack {
       ForEach(game.descardedCards) {card in
         if isDiscarded(card){
@@ -60,7 +60,7 @@ struct GameView: View {
   }
   
   // the view for deck of cards
-  var deckPile:some View{
+  var deckPile: some View{
     ZStack {
       ForEach(game.deck) {card in
         CardView(card: card)
@@ -78,19 +78,15 @@ struct GameView: View {
           withAnimation{game.dealNewCards()}
         }
       Spacer()
+      controls
+      Spacer()
       discardPile
     }
     .padding(.horizontal)
   }
   var controls: some View {
-    HStack {
-      if game.deckCount > 0 {
-        Button {game.dealNewCards()}label: {Text("Deal 3 More Cards")}
-        .buttonStyle(.borderedProminent)
-      }
-      Button {game.startNewGame()}label: {Text("New Game")}
+      Button("New Game"){ game.startNewGame() }
       .buttonStyle(.bordered)
-    }
   }
   
   private struct CardConstants {

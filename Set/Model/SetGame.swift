@@ -21,7 +21,7 @@ struct SetGame<CardStyle: SetCardStyle> {
     set { cards.indices.forEach {cards[$0].isSelected = newValue.contains($0)} }
   }
 
-  init(createUniqueCardStyles:() -> [CardStyle]) {
+  init(createUniqueCardStyles: () -> [CardStyle]) {
     // create cards for deck
     createUniqueCardStyles().enumerated().forEach {deck.append(Card(id: $0, cardStyle: $1))}
      deck.shuffle()
@@ -104,7 +104,7 @@ struct SetGame<CardStyle: SetCardStyle> {
     }
     selectedCardIndices = []
     }
-
+//
   private mutating func dealCard(_ id: Int) {
     guard let index = deck.firstIndex(where: {$0.id == id}) else { return }
     deck[index].isDealt = true
